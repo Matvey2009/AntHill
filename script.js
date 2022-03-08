@@ -1,6 +1,6 @@
 //Симулятор муравейника//
 
-let listClass = ['Ant', 'Model', 'View', 'Control', 'Main'];
+let listClass = ['Ant', 'Model', 'View', 'Control', 'Main']; 
 
 for(let name of listClass) {
     let script = document.createElement('script');
