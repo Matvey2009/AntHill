@@ -1,97 +1,100 @@
 class Ant {
-    constructor(ctx) {
-        this.ctx = ctx;
-        this.x = 100;
+    constructor() {
+        this.pos = {y: 100, x: 100};
     }
 
-    draw() {
-        //Круги
-        //Верхний круг
-        this.ctx.fillStyle='brown';
-        this.ctx.beginPath();
-        this.x += 1;
-        this.ctx.arc(100, 100, 10, 0, 2*Math.PI);
-        this.ctx.fill();
-        this.ctx.stroke();
-        this.ctx.closePath();
-        //Центральный круг
-        this.ctx.fillStyle='brown';
-        this.ctx.beginPath();
-        this.ctx.ellipse(100, 115, 10, 15, 0, 0, 2*Math.PI);
-        this.ctx.fill();
-        this.ctx.stroke();
-        this.ctx.closePath();
-        //Нижний круг
-        this.ctx.fillStyle='brown';
-        this.ctx.beginPath();
-        this.ctx.ellipse(100, 135, 12, 15, 0, 0, 2*Math.PI);
-        this.ctx.fill();
-        this.ctx.stroke();
-        this.ctx.closePath();
-
-        //Правый усик
-        this.ctx.beginPath();
-        this.ctx.moveTo(95, 91)
-        this.ctx.lineTo(85, 85)
-        this.ctx.lineTo(85, 75)
-        this.ctx.stroke();
-        this.ctx.closePath();
-
-        //Левый усик
-        this.ctx.beginPath();
-        this.ctx.moveTo(105, 91)
-        this.ctx.lineTo(115, 85)
-        this.ctx.lineTo(115, 75)
-        this.ctx.stroke();
-        this.ctx.closePath();
-
+    draw(ctx) {
+        let x = this.pos.x;
+        let y = this.pos.y;
         //Лапки
         //Верхнея-правая лапка
-        this.ctx.beginPath();
-        this.ctx.moveTo(110, 110)
-        this.ctx.lineTo(125, 100)
-        this.ctx.lineTo(135, 105)
-        this.ctx.stroke();
-        this.ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(x+5, y+10)
+        ctx.lineTo(x+25, y)
+        ctx.lineTo(x+35, y+5)
+        ctx.stroke();
+        ctx.closePath();
 
         //Верхнея-левая лапка
-        this.ctx.beginPath();
-        this.ctx.moveTo(90, 110)
-        this.ctx.lineTo(75, 100)
-        this.ctx.lineTo(65, 105)
-        this.ctx.stroke();
-        this.ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(x-5, y+10)
+        ctx.lineTo(x-25, y)
+        ctx.lineTo(x-35, y+5)
+        ctx.stroke();
+        ctx.closePath();
 
         //Центральная-правая лапка
-        this.ctx.beginPath();
-        this.ctx.moveTo(110, 115)
-        this.ctx.lineTo(130, 115)
-        this.ctx.lineTo(140, 120)
-        this.ctx.stroke();
-        this.ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(x+5, y+15)
+        ctx.lineTo(x+30, y+15)
+        ctx.lineTo(x+40, y+20)
+        ctx.stroke();
+        ctx.closePath();
 
         //Центральная-левая лапка
-        this.ctx.beginPath();
-        this.ctx.moveTo(90, 115)
-        this.ctx.lineTo(70, 115)
-        this.ctx.lineTo(60, 120)
-        this.ctx.stroke();
-        this.ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(x-5, y+15)
+        ctx.lineTo(x-30, y+15)
+        ctx.lineTo(x-40, y+20)
+        ctx.stroke();
+        ctx.closePath();
 
         //Нижнея-правая лапка
-        this.ctx.beginPath();
-        this.ctx.moveTo(110, 120)
-        this.ctx.lineTo(125, 130)
-        this.ctx.lineTo(135, 160)
-        this.ctx.stroke();
-        this.ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(x+5, y+20)
+        ctx.lineTo(x+25, y+30)
+        ctx.lineTo(x+35, y+60)
+        ctx.stroke();
+        ctx.closePath();
 
         //Нижнея-левая лапка
-        this.ctx.beginPath();
-        this.ctx.moveTo(90, 120)
-        this.ctx.lineTo(75, 130)
-        this.ctx.lineTo(65, 160)
-        this.ctx.stroke();
-        this.ctx.closePath();
+        ctx.beginPath();
+        ctx.moveTo(x-5, y+20)
+        ctx.lineTo(x-25, y+30)
+        ctx.lineTo(x-35, y+60)
+        ctx.stroke();
+        ctx.closePath();
+
+        //Центральный круг
+        ctx.fillStyle='Maroon';
+        ctx.beginPath();
+        ctx.ellipse(x, x+15, 8, 15, 0, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+        //Верхний круг
+        ctx.fillStyle='Maroon';
+        ctx.beginPath();
+        ctx.arc(x, y-5, 10, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+        
+        //Нижний круг
+        ctx.fillStyle='Maroon';
+        ctx.beginPath();
+        ctx.ellipse(x, x+35, 12, 15, 0, 0, 2*Math.PI);
+        ctx.fill();
+        ctx.stroke();
+        ctx.closePath();
+
+        //Левый усик
+        ctx.beginPath();
+        ctx.moveTo(x-5, y-9)
+        ctx.lineTo(x-10, y-15)
+        ctx.lineTo(x-15, y-30)
+        ctx.stroke();
+        ctx.closePath();
+
+        //Правый усик
+        ctx.beginPath();
+        ctx.moveTo(x+5, y-9 )
+        ctx.lineTo(x+10, y-15)
+        ctx.lineTo(x+15, y-30)
+        ctx.stroke();
+        ctx.closePath();
+
+        
     }
 }
