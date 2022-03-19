@@ -2,7 +2,7 @@
 
 class Control {
     constructor() {
-        this.fps = 128;
+        this.fps = 1;
         setInterval(() => this.update(), this.fps);
     }
 
