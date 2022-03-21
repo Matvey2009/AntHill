@@ -2,7 +2,8 @@
 
 var model, view, control;
 let listClass = [
-    'Ant', 
+    'Ant',
+    'Colony',
     'Model', 
     'View', 
     'Control'

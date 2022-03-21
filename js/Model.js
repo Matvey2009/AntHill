@@ -2,11 +2,12 @@
 
 class Model {
     constructor() {
-        this.family = 1000;
-        this.listAnt = [];
-        for(let i = 0; i < this.family; i++) {
-            let ant = new Ant();
-            this.listAnt.push(ant);
+        this.colony = 2;
+        this.family = 100;
+        this.listColony = [];
+        for(let i = 0; i < this.colony; i++) {
+            let colony = new Colony(this.family);
+            this.listColony.push(colony);
         }
     }
 }

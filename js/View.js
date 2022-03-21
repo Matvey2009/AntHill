@@ -12,8 +12,11 @@ class View {
     draw() {
         this.ctx.fillStyle = 'darkgreen';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        for(let ant of model.listAnt) {
-            ant.draw(this.fw);
+        for(let colony of model.listColony) {
+            for(let ant of colony.listAnt) {
+                ant.draw(this.ctx, this.fw)
+            }
+            colony.draw(this.ctx);
         }
     }
 }

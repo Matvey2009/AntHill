@@ -1,25 +1,24 @@
 class Ant {
-    constructor() {
-        this.x = Math.round(Math.random() * window.innerWidth);
-        this.y = Math.round(Math.random() * window.innerHeight);
+    constructor(color, x, y) {
+        this.x = Math.round(Math.random() * 400 + x - 200);
+        this.y = Math.round(Math.random() * 400 + y - 200);
         this.ang = Math.round(Math.random() * Math.PI*2);
-        this.col = '#' + Math.floor(Math.random() * 16777216).toString(16).padStart(6, '0');
+        this.col = color;
         this.pose = false;
     }
 
-    draw(fw) {
+    draw(ctx, fw) {
         let x = this.x;
         let y = this.y;
         let ang = this.ang;
         let col = this.col;
         let pose = this.pose;
+        
         //Каркас
-
-        let ctx = view.ctx;
         this.pose = !this.pose;
         ctx.fillStyle=col;
         ctx.strokeStyle='black';
-        ctx.lineWidth = 1,5;
+        ctx.lineWidth = 1,9;
         //Поворот
         ctx.save();
         ctx.translate(x, y);
