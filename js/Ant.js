@@ -1,15 +1,22 @@
 class Ant {
-    constructor(color, x, y) {
-        this.x = Math.round(Math.random() * 400 + x - 200);
-        this.y = Math.round(Math.random() * 400 + y - 200);
+    constructor(color, pos) {
+        this.pos = {
+            x: Math.round(Math.random() * 400 + pos.x - 200),
+            y: Math.round(Math.random() * 400 + pos.y - 200)
+        }
+
+        this.target = {
+            x: window.innerWidth/2,
+            y: window.innerHeight/2
+        }
         this.ang = Math.round(Math.random() * Math.PI*2);
         this.col = color;
         this.pose = false;
     }
 
     draw(ctx, fw) {
-        let x = this.x;
-        let y = this.y;
+        let x = this.pos.x;
+        let y = this.pos.y;
         let ang = this.ang;
         let col = this.col;
         let pose = this.pose;

@@ -4,6 +4,7 @@ var model, view, control;
 let listClass = [
     'Ant',
     'Colony',
+    'Items',
     'Model', 
     'View', 
     'Control'
