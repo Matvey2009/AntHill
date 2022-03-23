@@ -9,12 +9,20 @@ class Ant {
             x: window.innerWidth/2,
             y: window.innerHeight/2
         }
-        this.ang = Math.round(Math.random() * Math.PI*2);
         this.col = color;
         this.pose = false;
+        this.speed = 2;
+        this.ang = this.getAngle(this.pos, this.target);
+    }
+
+    update() {  
+        let ang = this.ang - Math.PI / 2;
+        this.pos.x = Math.round(this.pos.x + this.speed * Math.cos(ang));
+        this.pos.y = Math.round(this.pos.y + this.speed * Math.sin(ang));
     }
 
     draw(ctx, fw) {
+        this.update();
         let x = this.pos.x;
         let y = this.pos.y;
         let ang = this.ang;
@@ -118,6 +126,10 @@ class Ant {
         ctx.closePath();
 
         ctx.restore();
+    }
+
+    getAngle(pos, target) {
+        return Math.atan2(target.y - pos.y,  target.x - pos.x) + Math.PI / 2;
     }
 }
 
