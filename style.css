@@ -3,6 +3,22 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: rgb(0, 100, 30);
+    background-color: rgb(53, 18, 110);
     
+}
+
+button {
+    color:rgb(220, 110, 110);
+    font-size: 1em;
+    font-weight: bolt;
+    width: 2em;
+    height: 2em;
+    border-radius: .5;
+    background-color: rgba(255, 239, 213, .61803);
+}
+
+#buttons {
+    position: absolute;
+    top: 8px;
+    right: 8px;
 }

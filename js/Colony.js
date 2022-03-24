@@ -2,7 +2,7 @@
 
 class Colony {
     constructor(family, i) {
-        this.pallet = ['Yellow', 'Red', 'Maroon', 'White', 'Black', 'SaddleBrown', 'DarkKhaki', 'DimGrey'];
+        this.pallet = ['Red', 'Maroon', 'White', 'SaddleBrown', 'DarkKhaki', 'DimGrey'];
         this.color = this.getColor(i);
         this.pos = {        
             x: Math.round(Math.random() * (window.innerWidth-500)+250),

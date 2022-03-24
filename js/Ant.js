@@ -5,9 +5,9 @@ class Ant {
             y: Math.round(Math.random() * 400 + pos.y - 200)
         }
 
-        this.target = {
-            x: window.innerWidth/2,
-            y: window.innerHeight/2
+        this.target = {      
+            x: Math.round(Math.random() * (window.innerWidth-500)+250),
+            y: Math.round(Math.random() * (window.innerHeight-300)+150)
         }
         this.col = color;
         this.pose = false;
@@ -22,7 +22,6 @@ class Ant {
     }
 
     draw(ctx, fw) {
-        this.update();
         let x = this.pos.x;
         let y = this.pos.y;
         let ang = this.ang;

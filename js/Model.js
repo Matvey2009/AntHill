@@ -2,7 +2,7 @@
 
 class Model {
     constructor() {
-        this.colony = 8;
+        this.colony = 4;
         this.family = 100;
 
         this.numFood  = 20;
@@ -30,6 +30,13 @@ class Model {
         for(let i = 0; i < this.numBlock; i++) {
             let block = new Block();
             this.listBlock.push(block);
+        }
+    }
+    
+    update() {
+        for(let colony of this.listColony) {
+            for(let ant of colony.listAnt)
+                ant.update();
         }
     }
 }
