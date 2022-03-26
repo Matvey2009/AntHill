@@ -9,26 +9,18 @@ class Colony {
             x: Math.round(Math.random() * (window.innerWidth-500)+250),
             y: Math.round(Math.random() * (window.innerHeight-300)+150)
         }
-        this.delay = 25;
-        
-
         this.listAnt = [];
-        //for (let i = 0; i < food; i++) {
-        //    let ant = new Ant(this.color, this.pos);
-        //    this.listAnt.push(ant);
-        //}
+        this.delay = 25;  
     }
 
     update() {
-        if(this.delay > 75 && this.food > 0) {
+        if(this.delay >= 75 && this.food > 0) {
             let ant = new Ant(this.color, this.pos);
             this.listAnt.push(ant);
             this.food--;
             this.delay = 0;
         } else
-            this.delay++;
-        this.delay = Math.max(this.delay+1, 0);
-        console.log(this.delay)
+            this.delay = Math.min(this.delay+1, 75);
     }
 
     draw(ctx) {
