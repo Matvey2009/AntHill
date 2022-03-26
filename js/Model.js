@@ -2,8 +2,8 @@
 
 class Model {
     constructor() {
-        this.colony = 4;
-        this.family = 100;
+        this.base = 2;
+        this.food = 5;
 
         this.numFood  = 20;
         this.nunRock  = 20;
@@ -14,8 +14,8 @@ class Model {
         this.listRock = [];
         this.listBlock= [];
         
-        for(let i = 0; i < this.colony; i++) {
-            let colony = new Colony(this.family, i);
+        for(let i = 0; i < this.base; i++) {
+            let colony = new Colony(this.food, i);
             this.listColony.push(colony);
         }
         
@@ -37,6 +37,7 @@ class Model {
         for(let colony of this.listColony) {
             for(let ant of colony.listAnt)
                 ant.update();
+            colony.update();
         }
     }
 }

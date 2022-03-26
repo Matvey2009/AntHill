@@ -1,8 +1,8 @@
 class Ant {
     constructor(color, pos) {
         this.pos = {
-            x: Math.round(Math.random() * 400 + pos.x - 200),
-            y: Math.round(Math.random() * 400 + pos.y - 200)
+            x: pos.x,
+            y: pos.y
         }
 
         this.target = {      

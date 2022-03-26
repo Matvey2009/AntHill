@@ -1,19 +1,34 @@
 //Симулятор муравейника//
 
 class Colony {
-    constructor(family, i) {
+    constructor(food, i) {
         this.pallet = ['Red', 'Maroon', 'White', 'SaddleBrown', 'DarkKhaki', 'DimGrey'];
         this.color = this.getColor(i);
+        this.food = food;
         this.pos = {        
             x: Math.round(Math.random() * (window.innerWidth-500)+250),
             y: Math.round(Math.random() * (window.innerHeight-300)+150)
         }
+        this.delay = 25;
+        
 
         this.listAnt = [];
-        for (let i = 0; i < family; i++) {
+        //for (let i = 0; i < food; i++) {
+        //    let ant = new Ant(this.color, this.pos);
+        //    this.listAnt.push(ant);
+        //}
+    }
+
+    update() {
+        if(this.delay > 75 && this.food > 0) {
             let ant = new Ant(this.color, this.pos);
             this.listAnt.push(ant);
-        }
+            this.food--;
+            this.delay = 0;
+        } else
+            this.delay++;
+        this.delay = Math.max(this.delay+1, 0);
+        console.log(this.delay)
     }
 
     draw(ctx) {
