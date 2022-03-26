@@ -29,7 +29,6 @@ class Control {
                 y: e.clientY
             }
             model.listFood.push(food);
-            console.log(pos);
             this.focus = false;
         }
     }
