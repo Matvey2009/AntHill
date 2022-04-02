@@ -1,36 +1,41 @@
 class Ant {
-    constructor(color, pos) {
+    constructor(colony) {
+        this.color = colony.color;
         this.pos = {
-            x: pos.x,
-            y: pos.y
+            x: colony.pos.x,
+            y: colony.pos.y
         }
+        this.action = () => Action.wait(this);
 
         this.target = {      
             x: Math.round(Math.random() * (window.innerWidth-500)+250),
             y: Math.round(Math.random() * (window.innerHeight-300)+150)
         }
-        this.col = color;
         this.pose = false;
+        this.timer = 20;
         this.speed = 2;
         this.ang = this.getAngle(this.pos, this.target);
     }
 
     update() {  
-        let ang = this.ang - Math.PI / 2;
-        this.pos.x = Math.round(this.pos.x + this.speed * Math.cos(ang));
-        this.pos.y = Math.round(this.pos.y + this.speed * Math.sin(ang));
+        this.action();
+
+        this.timer--;
+        if (this.timer <= 0) {
+            this.action = () => Action.find(this);
+        }
     }
 
     draw(ctx, fw) {
         let x = this.pos.x;
         let y = this.pos.y;
         let ang = this.ang;
-        let col = this.col;
+        let color = this.color;
         let pose = this.pose;
         
         //Каркас
         this.pose = !this.pose;
-        ctx.fillStyle=col;
+        ctx.fillStyle=color;
         ctx.strokeStyle='black';
         ctx.lineWidth = 1,9;
         //Поворот

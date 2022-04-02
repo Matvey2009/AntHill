@@ -2,6 +2,7 @@
 
 var model, view, control;
 let listClass = [
+    'Action',
     'Ant',
     'Colony',
     'Items',

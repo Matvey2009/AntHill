@@ -21,7 +21,7 @@ class Control {
         view.draw();
     }
 
-    onClcik = (e) => {
+    onClcik(e) {
         if(!this.focus){
             let food = new Food();
             food.pos = {

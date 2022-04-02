@@ -10,17 +10,20 @@ class Colony {
             y: Math.round(Math.random() * (window.innerHeight-300)+150)
         }
         this.listAnt = [];
-        this.delay = 25;  
+        this.timer = 100;
+        this.delay = this.timer / 4;  
     }
 
     update() {
-        if(this.delay >= 75 && this.food > 0) {
-            let ant = new Ant(this.color, this.pos);
+        if(this.food > 0) {
+            this.delay--;
+        }
+        if (this.delay < 0) {
+            let ant = new Ant(this);
             this.listAnt.push(ant);
             this.food--;
-            this.delay = 0;
-        } else
-            this.delay = Math.min(this.delay+1, 75);
+            this.delay = this.timer;
+        }
     }
 
     draw(ctx) {
