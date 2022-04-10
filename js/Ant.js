@@ -6,24 +6,30 @@ class Ant {
             y: colony.pos.y
         }
         this.action = () => Action.wait(this);
+        this.ai = colony.ai;
 
         this.target = {      
             x: Math.round(Math.random() * (window.innerWidth-500)+250),
             y: Math.round(Math.random() * (window.innerHeight-300)+150)
         }
         this.pose = false;
-        this.timer = 20;
+        this.timer = 0;
         this.speed = 2;
         this.ang = this.getAngle(this.pos, this.target);
     }
 
-    update() {  
-        this.action();
-
+    update() { 
         this.timer--;
         if (this.timer <= 0) {
-            this.action = () => Action.find(this);
+            if (this.live <= 0) 
+                this.action = () => Action.dead(this)
+            else {
+                this.action = () => Action.wait(this);
+                //Осматреватся
+                this.ai.select(this);
+            }
         }
+        this.action();
     }
 
     draw(ctx, fw) {
@@ -34,7 +40,6 @@ class Ant {
         let pose = this.pose;
         
         //Каркас
-        this.pose = !this.pose;
         ctx.fillStyle=color;
         ctx.strokeStyle='black';
         ctx.lineWidth = 1,9;

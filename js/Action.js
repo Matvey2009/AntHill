@@ -8,9 +8,10 @@ class Action {
 
     static find(ant) {
         console.log('Муравей ищет');
-        let ang = ant.ang - Math.PI / 2;
-        ant.pos.x = Math.round(ant.pos.x + ant.speed * Math.cos(ang));
-        ant.pos.y = Math.round(ant.pos.y + ant.speed * Math.sin(ang));
+        let angle = ant.ang-Math.PI/2;
+        ant.pos.x += ant.speed * Math.cos(angle);
+        ant.pos.y += ant.speed * Math.sin(angle);
+        ant.pose = !ant.pose;
     }
 
     static back(ant) {
@@ -19,6 +20,7 @@ class Action {
 
     static mоve(ant) {
         console.log('Муравей движется');
+        ant.pose = !ant.pose;
     }
 
     static grab(ant) {
