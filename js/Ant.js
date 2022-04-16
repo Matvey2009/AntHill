@@ -5,31 +5,32 @@ class Ant {
             x: colony.pos.x,
             y: colony.pos.y
         }
-        this.action = () => Action.wait(this);
+        this.action = Action.wait;
         this.ai = colony.ai;
 
-        this.target = {      
-            x: Math.round(Math.random() * (window.innerWidth-500)+250),
-            y: Math.round(Math.random() * (window.innerHeight-300)+150)
-        }
+        this.target = this.getTarget(this.pos);
         this.pose = false;
         this.timer = 0;
         this.speed = 2;
         this.ang = this.getAngle(this.pos, this.target);
+        this.food = 1;
+        this.walk = false;
     }
 
     update() { 
         this.timer--;
         if (this.timer <= 0) {
-            if (this.live <= 0) 
-                this.action = () => Action.dead(this)
+            if (this.live <= 0)
+                this.action = Action.dead
             else {
-                this.action = () => Action.wait(this);
                 //Осматреватся
                 this.ai.select(this);
+                this.action(this);
+                console.log(this.action.name);
             }
         }
-        this.action();
+        if (this.walk)
+            this.goStep();
     }
 
     draw(ctx, fw) {
@@ -39,15 +40,26 @@ class Ant {
         let color = this.color;
         let pose = this.pose;
         
-        //Каркас
-        ctx.fillStyle=color;
-        ctx.strokeStyle='black';
-        ctx.lineWidth = 1,9;
         //Поворот
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(ang);
         ctx.translate(-x, -y);
+
+        //Корм
+        if (this.food > 0) {
+            ctx.fillStyle='Khaki';//Food.color;
+            ctx.beginPath();
+            ctx.arc(x, y-7, fw.size2, 0, 2*Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+        };
+
+        //Каркас
+        ctx.fillStyle=color;
+        ctx.strokeStyle='black';
+        ctx.lineWidth = 1,9;
 
         //Верхнея-правая лапка
         ctx.beginPath();
@@ -137,8 +149,22 @@ class Ant {
         ctx.restore();
     }
 
+    getTarget(pos) {
+        return {      
+            x: Math.round(Math.random() * (pos.x-50)+100),
+            y: Math.round(Math.random() * (pos.y-50)+100)
+        };
+    }
+
     getAngle(pos, target) {
         return Math.atan2(target.y - pos.y,  target.x - pos.x) + Math.PI / 2;
+    }
+
+    goStep() {
+        this.pose = !this.pose;
+        let angle = this.ang-Math.PI/2;
+        this.pos.x += this.speed * Math.cos(angle);
+        this.pos.y += this.speed * Math.sin(angle);
     }
 }
 

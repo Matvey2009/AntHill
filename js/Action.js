@@ -2,44 +2,80 @@
 
 class Action {
 
+    static listAction = [
+        Action.wait, 
+        Action.find,
+        Action.back,
+        Action.mоve,
+        Action.grab,
+        Action.kick,
+        Action.dead,
+        Action.drop,
+        Action.dance,
+        Action.info
+    ];
+
     static wait(ant) {
-        console.log('Муравей ждёт');
+        ant.timer = 40;
+        ant.walk = false;
     }
 
     static find(ant) {
-        console.log('Муравей ищет');
-        let angle = ant.ang-Math.PI/2;
-        ant.pos.x += ant.speed * Math.cos(angle);
-        ant.pos.y += ant.speed * Math.sin(angle);
-        ant.pose = !ant.pose;
+        ant.timer = 40;
+        ant.walk = true;
+        ant.target = ant.getTarget(ant.pos);
+        ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
     static back(ant) {
-        console.log('Муравей возвращается');
+        ant.timer = 40;
+        ant.walk = true;
+        ant.food = 1;
+        // Повернуться на муравейник
+        // Идти к муравейнику
     }
 
     static mоve(ant) {
-        console.log('Муравей движется');
-        ant.pose = !ant.pose;
+        ant.timer = 40;
+        ant.walk = true;
+        // Повернуться на цель
+        // Идти к цели
     }
 
     static grab(ant) {
-        console.log('Муравей подбирает');
-    }
-
-    static bite(ant) {
-        console.log('Муравей кусает');
+        ant.timer = 40;
+        ant.walk = false;
+        ant.food = 1;
+        // Взять еду или камень
     }
 
     static kick(ant) {
-        console.log('Муравей пинает');
+        ant.timer = 40;
+        ant.walk = false;
+        // Укусить вражеского  муравья
     }
 
     static dead(ant) {
-        console.log('Муравей погиб');
+        ant.timer = 40;
+        ant.walk = false;
+        // Ничего не делать
     }
 
-    static quit(ant) {
-        console.log('Муравей ждёт');
+    static drop(ant) {
+        ant.timer = 40;
+        ant.walk = false;
+        ant.food = 0
+        // Отпустить камень или еду
+    }
+
+    static dance(ant){
+        ant.timer = 40;
+        ant.walk = false;
+        // Начать танцевать
+    }
+
+    static info(ant) {
+        ant.timer = 40;
+        ant.walk = false;
     }
 }

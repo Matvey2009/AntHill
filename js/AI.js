@@ -3,10 +3,10 @@
 class PI {
     select(ant) {
         if (ant.pose) {
-            ant.action = () => Action.wait(ant);
+            ant.action = Action.wait;
             ant.timer = 20;
         } else {
-            ant.action = () => Action.find(ant);
+            ant.action = Action.find;
             ant.timer = 30;
             ant.target = {      
                 x: Math.round(Math.random() * (window.innerWidth-500)+250),
@@ -20,6 +20,6 @@ class PI {
 
 class AI {
     select(ant) {
-        ;
+        ant.action = Action.listAction[(Math.floor(Math.random() * Action.listAction.length))];
     }
 }

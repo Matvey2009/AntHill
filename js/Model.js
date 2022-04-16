@@ -2,7 +2,7 @@
 
 class Model {
     constructor() {
-        this.base = 2;
+        this.base = 5;
         this.food = 5;
 
         this.numFood  = 20;

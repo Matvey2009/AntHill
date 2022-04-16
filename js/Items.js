@@ -20,7 +20,7 @@ class Items {
 class Food extends Items {  
     constructor() {
         super();
-        this.color = 'Maroon';
+        this.color = 'Khaki';
     }
 }
 
