@@ -1,20 +1,37 @@
 //Симулятор муравейника//
 
-class PI {
+class PI { 
     select(ant) {
-        if (ant.pose) {
-            ant.action = Action.wait;
-            ant.timer = 20;
-        } else {
+        //Cмерть
+        if (ant.live <= 0)
+            ant.action = Action.dead;
+        //Выбрость
+        else if (ant.load && ant.target == Colony.pos)
+            ant.action = Action.drop;
+        //Бить
+        else if (true)
+            ant.action = Action.kick;
+        //Двигаться
+        else if (true)
+            ant.action = Action.mоve;
+        //Найти
+        else if (true)
             ant.action = Action.find;
-            ant.timer = 30;
-            ant.target = {      
-                x: Math.round(Math.random() * (window.innerWidth-500)+250),
-                y: Math.round(Math.random() * (window.innerHeight-300)+150)
-            }
-            ant.ang = ant.getAngle(ant.pos, ant.target);
-        }
-        ant.pose = !ant.pose;
+        //Взять
+        else if (true)
+            ant.action = Action.grab;
+        //Вернуться
+        else if (true)
+            ant.action = Action.back;
+        //Обмен информацией
+        else if (true)
+            ant.action = Action.info;
+        //Танцевать
+        else if (live == 1)
+            ant.action = Action.flex;
+        //Подождать
+        else
+            ant.action = Action.wait;
     }
 }
 

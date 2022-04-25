@@ -11,7 +11,7 @@ class Action {
         Action.kick,
         Action.dead,
         Action.drop,
-        Action.dance,
+        Action.flex,
         Action.info
     ];
 
@@ -68,7 +68,7 @@ class Action {
         // Отпустить камень или еду
     }
 
-    static dance(ant){
+    static flex(ant){
         ant.timer = 40;
         ant.walk = false;
         // Начать танцевать

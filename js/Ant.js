@@ -10,11 +10,13 @@ class Ant {
 
         this.target = this.getTarget(this.pos);
         this.pose = false;
+        this.range =30;
         this.timer = 0;
         this.speed = 2;
         this.ang = this.getAngle(this.pos, this.target);
-        this.food = 1;
+        this.load = false;
         this.walk = false;
+        this.listItem =[]; //////////////////
     }
 
     update() { 
@@ -23,10 +25,14 @@ class Ant {
             if (this.live <= 0)
                 this.action = Action.dead
             else {
-                //Осматреватся
+                this.pos = {
+                    x : Math.round(this.pos.x),
+                    y : Math.round(this.pos.y)
+                }
+                model.vision(this);
                 this.ai.select(this);
                 this.action(this);
-                console.log(this.action.name);
+                console.log(this.listItem); //////////////////
             }
         }
         if (this.walk)
@@ -46,15 +52,23 @@ class Ant {
         ctx.rotate(ang);
         ctx.translate(-x, -y);
 
+        if (this.load){
+            this.load.pos = {
+                x : x,
+                y : y-7
+            }
+            this.load.draw(ctx);
+        }
+
         //Корм
-        if (this.food > 0) {
-            ctx.fillStyle='Khaki';//Food.color;
-            ctx.beginPath();
-            ctx.arc(x, y-7, fw.size2, 0, 2*Math.PI);
-            ctx.fill();
-            ctx.stroke();
-            ctx.closePath();
-        };
+        //if (this.food > 0) {
+        //    ctx.fillStyle='Khaki';//Food.color;
+        //    ctx.beginPath();
+        //    ctx.arc(x, y-7, fw.size2, 0, 2*Math.PI);
+        //    ctx.fill();
+        //    ctx.stroke();
+        //    ctx.closePath();
+        //};
 
         //Каркас
         ctx.fillStyle=color;
