@@ -9,12 +9,12 @@ class Ant {
         this.ai = colony.ai;
         this.goal = constructor;
 
-        this.target.pos = {pos: model.rndPos(this.pos)};
-        this.pose = false;
         this.range =30;
+        this.target.pos = {pos: model.rndPos(this.pos, this.range)};
+        this.pose = false;
         this.timer = 0;
         this.speed = 2;
-        this.ang = this.getAngle(this.pos, this.target.pos);
+        this.ang = this.getAngle(this.pos, this.target);
         this.load = false;
         this.walk = false;
     }
