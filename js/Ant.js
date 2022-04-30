@@ -5,18 +5,18 @@ class Ant {
             x: colony.pos.x,
             y: colony.pos.y
         }
-        this.action = Action.wait;
+        this.action = Action.find;
         this.ai = colony.ai;
+        this.goal = constructor;
 
-        this.target = this.getTarget(this.pos);
+        this.target.pos = {pos: model.rndPos(this.pos)};
         this.pose = false;
         this.range =30;
         this.timer = 0;
         this.speed = 2;
-        this.ang = this.getAngle(this.pos, this.target);
+        this.ang = this.getAngle(this.pos, this.target.pos);
         this.load = false;
         this.walk = false;
-        this.listItem =[]; //////////////////
     }
 
     update() { 
@@ -32,7 +32,6 @@ class Ant {
                 model.vision(this);
                 this.ai.select(this);
                 this.action(this);
-                console.log(this.listItem); //////////////////
             }
         }
         if (this.walk)
@@ -161,17 +160,12 @@ class Ant {
         ctx.closePath();
 
         ctx.restore();
-    }
-
-    getTarget(pos) {
-        return {      
-            x: Math.round(Math.random() * (pos.x-50)+100),
-            y: Math.round(Math.random() * (pos.y-50)+100)
-        };
+        ctx.font = "8pt Arial";
+        ctx.fillText(this.action.name, x, y-20);
     }
 
     getAngle(pos, target) {
-        return Math.atan2(target.y - pos.y,  target.x - pos.x) + Math.PI / 2;
+        return Math.atan2(target.pos.y - pos.y,  target.pos.x - pos.x) + Math.PI / 2;
     }
 
     goStep() {

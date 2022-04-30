@@ -12,7 +12,7 @@ class Colony {
         }
         this.listAnt = [];
         this.timer = 100;
-        this.delay = this.timer / 4;  
+        this.delay = this.timer / 4;
     }
 
     update() {

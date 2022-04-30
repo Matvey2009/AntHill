@@ -23,8 +23,9 @@ class Action {
     static find(ant) {
         ant.timer = 40;
         ant.walk = true;
-        ant.target = ant.getTarget(ant.pos);
+        ant.target = model.rndPos(ant.pos);
         ant.angle = ant.getAngle(ant.pos, ant.target);
+        ant.goal = food;
     }
 
     static back(ant) {
