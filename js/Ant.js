@@ -10,7 +10,7 @@ class Ant {
         this.goal = constructor;
 
         this.range =30;
-        this.target.pos = {pos: model.rndPos(this.pos, this.range)};
+        this.target = {pos: model.rndPos(this.pos, this.range)};
         this.pose = false;
         this.timer = 0;
         this.speed = 2;
