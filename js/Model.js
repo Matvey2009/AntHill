@@ -76,7 +76,6 @@ class Model {
         for(let x = this.sector.left; x < this.sector.right; x++) 
             for(let y = this.sector.top; y < this.sector.bottom; y++) 
                 if(this.map[x][y] instanceof ant.goal){
-                    ant.listItem.push(this.map[x][y]);
                     ant.target.pos = this.map[x][y];
                     break
                 }
