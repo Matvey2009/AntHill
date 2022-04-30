@@ -63,7 +63,8 @@ class Model {
         }
     }
 
-    rndPos(pos) {
+    rndPos(pos, range) {
+        this.sector = this.getSector(pos, range);
         return {      
             x: Math.round(Math.random() * (this.sector.right-this.sector.left)+this.sector.left),
             y: Math.round(Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top)
@@ -71,7 +72,7 @@ class Model {
     }
 
     vision(ant) {
-        this.sector = this.getSector(ant.pos, ant.range)
+        this.sector = this.getSector(ant.pos, ant.range);
         for(let x = this.sector.left; x < this.sector.right; x++) 
             for(let y = this.sector.top; y < this.sector.bottom; y++) 
                 if(this.map[x][y] instanceof ant.goal){
