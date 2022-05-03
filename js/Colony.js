@@ -2,10 +2,10 @@
 
 class Colony {
     constructor(food, i) {
-        this.pallet = ['Red', 'Maroon', 'White', 'SaddleBrown', 'DarkKhaki', 'DimGrey'];
+        this.pallet = ['Maroon', 'White', 'SaddleBrown', 'DarkKhaki', 'DimGrey'];
         this.color = this.getColor(i);
         this.food = food;
-        this.ai = new AI();
+        this.ai = new PI();
         this.pos = { 
             x: Math.round(Math.random() * (window.innerWidth-500)+250),
             y: Math.round(Math.random() * (window.innerHeight-300)+150)

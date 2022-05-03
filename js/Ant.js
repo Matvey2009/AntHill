@@ -9,11 +9,12 @@ class Ant {
         this.ai = colony.ai;
         this.goal = constructor;
 
+        this.life = 100;
         this.range =30;
         this.target = {pos: model.rndPos(this.pos, this.range)};
         this.pose = false;
         this.timer = 0;
-        this.speed = 2;
+        this.speed = 1;
         this.ang = this.getAngle(this.pos, this.target);
         this.load = false;
         this.walk = false;
@@ -22,7 +23,7 @@ class Ant {
     update() { 
         this.timer--;
         if (this.timer <= 0) {
-            if (this.live <= 0)
+            if (this.life <= 0) 
                 this.action = Action.dead
             else {
                 this.pos = {
@@ -36,21 +37,23 @@ class Ant {
         }
         if (this.walk)
             this.goStep();
+        //console.log(this.action.name); ///////////////////
     }
 
     draw(ctx, fw) {
         let x = this.pos.x;
         let y = this.pos.y;
-        let ang = this.ang;
+        let angle = this.angle;
         let color = this.color;
         let pose = this.pose;
         
         //Поворот
         ctx.save();
         ctx.translate(x, y);
-        ctx.rotate(ang);
+        ctx.rotate(angle);
         ctx.translate(-x, -y);
 
+        //Груз
         if (this.load){
             this.load.pos = {
                 x : x,
@@ -58,16 +61,6 @@ class Ant {
             }
             this.load.draw(ctx);
         }
-
-        //Корм
-        //if (this.food > 0) {
-        //    ctx.fillStyle='Khaki';//Food.color;
-        //    ctx.beginPath();
-        //    ctx.arc(x, y-7, fw.size2, 0, 2*Math.PI);
-        //    ctx.fill();
-        //    ctx.stroke();
-        //    ctx.closePath();
-        //};
 
         //Каркас
         ctx.fillStyle=color;
@@ -158,10 +151,18 @@ class Ant {
         ctx.lineTo(x+fw.size4, y-fw.size6)
         ctx.stroke();
         ctx.closePath();
-
         ctx.restore();
+
+        //info
+        ctx.fillStyle = this.color;
         ctx.font = "8pt Arial";
-        ctx.fillText(this.action.name, x, y-20);
+        ctx.fillText(this.action.name + " " + this.target.name + " " + this.timer, x, y-20);
+        
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.pos.x, this.pos.y, 2, 0, 2*this.Pi2);
+        ctx.fill();
+        ctx.closePath();
     }
 
     getAngle(pos, target) {
@@ -170,7 +171,7 @@ class Ant {
 
     goStep() {
         this.pose = !this.pose;
-        let angle = this.ang-Math.PI/2;
+        let angle = this.angle-Math.PI/2;
         this.pos.x += this.speed * Math.cos(angle);
         this.pos.y += this.speed * Math.sin(angle);
     }

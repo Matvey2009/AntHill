@@ -3,31 +3,31 @@
 class PI { 
     select(ant) {
         //Cмерть
-        if (ant.live <= 0)
+        if (ant.life <= 0)
             ant.action = Action.dead;
         //Выбрость
         else if (ant.load && ant.target == Colony.pos)
             ant.action = Action.drop;
         //Бить
-        else if (true)
+        else if (!ant.load && ant.target == ant)
             ant.action = Action.kick;
         //Двигаться
-        else if (true)
+        else if (ant.target instanceof ant.goal)
             ant.action = Action.mоve;
         //Найти
-        else if (true)
+        else if (!ant.load)
             ant.action = Action.find;
         //Взять
-        else if (true)
+        else if (Model.delta(ant.pos, ant.target) < ant.speed*12 && ant.target instanceof Food && !ant.load)
             ant.action = Action.grab;
         //Вернуться
-        else if (true)
+        else if (ant.load instanceof Food)
             ant.action = Action.back;
         //Обмен информацией
-        else if (true)
+        else if (false)
             ant.action = Action.info;
         //Танцевать
-        else if (live == 1)
+        else if (ant.life == 1)
             ant.action = Action.flex;
         //Подождать
         else

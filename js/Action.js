@@ -21,11 +21,11 @@ class Action {
     }
 
     static find(ant) {
+        ant.goal = Food;
         ant.timer = 40;
         ant.walk = true;
-        ant.target.pos = model.rndPos(ant.pos, ant.range);
+        ant.target = {pos: model.rndPos(ant.pos, ant.range)};
         ant.angle = ant.getAngle(ant.pos, ant.target);
-        ant.goal = Food;
     }
 
     static back(ant) {
@@ -37,10 +37,9 @@ class Action {
     }
 
     static mоve(ant) {
-        ant.timer = 40;
+        ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed - 10);
         ant.walk = true;
-        // Повернуться на цель
-        // Идти к цели
+        ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
     static grab(ant) {

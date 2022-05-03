@@ -6,7 +6,7 @@ class Model {
             width : innerWidth,
             height: innerHeight
         }
-        this.base = 5;
+        this.base = 3;
         this.food = 5;
 
         this.numFood  = 20;
@@ -76,18 +76,21 @@ class Model {
         for(let x = this.sector.left; x < this.sector.right; x++) 
             for(let y = this.sector.top; y < this.sector.bottom; y++) 
                 if(this.map[x][y] instanceof ant.goal){
-                    ant.target.pos = this.map[x][y];
+                    ant.target = this.map[x][y];
                     break
                 }
-
     }
 
     getSector(pos, range) {
         return {
             left: Math.max(0, pos.x-range),
             right: Math.min(this.size.width, pos.x+range),
-            top: Math.min(0, pos.y-range),
-            bottom: Math.max(this.size.height, pos.y+range)
+            top: Math.max(0, pos.y-range),
+            bottom: Math.min(this.size.height, pos.y+range)
         }
+    }
+
+    delta(pos, target) {
+        return Math.sqrt((pos.x-target.pos.x)**2 + (pos.y-target.pos.y)**2);
     }
 }
