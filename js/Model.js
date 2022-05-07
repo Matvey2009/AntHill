@@ -7,9 +7,9 @@ class Model {
             height: innerHeight
         }
         this.base = 3;
-        this.food = 5;
+        this.food = 256;
 
-        this.numFood  = 20;
+        this.numFood  = 100;
         this.nunRock  = 20;
         this.numBlock = 20;
 

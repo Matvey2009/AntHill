@@ -11,8 +11,10 @@ class Control {
         this.btnSave = document.getElementById('save');
         this.btnPlay.addEventListener('click', this.game.bind(this));
         this.btnClear.addEventListener('click', this.clear.bind(this));
+        this.info = false;
         setInterval(() => this.update(), this.fps);
         onclick = (e) => this.onClcik(e);
+        onkeydown = (e) => this.onKeyDown(e);
     }
 
     update() {
@@ -29,8 +31,14 @@ class Control {
                 y: e.clientY
             }
             model.listFood.push(food);
+            model.map[food.pos.x][food.pos.y] = food;
             this.focus = false;
         }
+    }
+
+    onKeyDown(e) {
+        if(e.keyCode == 18)
+            this.info = !this.info;
     }
 
     game() {

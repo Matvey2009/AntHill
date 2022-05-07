@@ -31,9 +31,9 @@ class Action {
     static back(ant) {
         ant.timer = 40;
         ant.walk = true;
-        ant.food = 1;
-        // Повернуться на муравейник
-        // Идти к муравейнику
+        ant.goal = Colony;
+        ant.target = {pos: model.rndPos(ant.pos, ant.range)};
+        ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
     static mоve(ant) {
@@ -43,10 +43,15 @@ class Action {
     }
 
     static grab(ant) {
+        ant.goal = Colony;
         ant.timer = 40;
         ant.walk = false;
-        ant.food = 1;
-        // Взять еду или камень
+        let food = Math.min(ant.target.weight, ant.life/2);
+        ant.target.weight -= food;
+        ant.load = new Food();
+        ant.load.weight = food;
+        //Если корм = 0 то удалить его с карты
+        
     }
 
     static kick(ant) {
@@ -64,8 +69,9 @@ class Action {
     static drop(ant) {
         ant.timer = 40;
         ant.walk = false;
-        ant.food = 0
-        // Отпустить камень или еду
+        ant.target.food += ant.load.weight;
+        ant.load = false;
+        ant.goal = constructor;
     }
 
     static flex(ant){

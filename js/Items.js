@@ -22,6 +22,16 @@ class Food extends Items {
     constructor() {
         super();
         this.color = 'Khaki';
+        this.weight = Math.round(Math.random()*128+128)
+    }
+    
+    draw(ctx) {
+        super.draw(ctx);
+        if(control.info) {
+            ctx.fillStyle = this.color;
+            ctx.found = "6py Arial";
+            ctx.fillText(this.weight, this.pos.x, this.pos.y+10)
+        }
     }
 }
 

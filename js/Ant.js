@@ -24,7 +24,7 @@ class Ant {
         this.timer--;
         if (this.timer <= 0) {
             if (this.life <= 0) 
-                this.action = Action.dead
+                this.action = Action.dead;
             else {
                 this.pos = {
                     x : Math.round(this.pos.x),
@@ -37,7 +37,6 @@ class Ant {
         }
         if (this.walk)
             this.goStep();
-        //console.log(this.action.name); ///////////////////
     }
 
     draw(ctx, fw) {
@@ -153,16 +152,17 @@ class Ant {
         ctx.closePath();
         ctx.restore();
 
-        //info
-        ctx.fillStyle = this.color;
-        ctx.font = "8pt Arial";
-        ctx.fillText(this.action.name + " " + this.target.name + " " + this.timer, x, y-20);
-        
-        ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.pos.x, this.pos.y, 2, 0, 2*this.Pi2);
-        ctx.fill();
-        ctx.closePath();
+        if(control.info) {
+            ctx.fillStyle = this.color;
+            ctx.font = "8pt Arial";
+            ctx.fillText(this.action.name + " " + this.target.name + " " + this.timer, x, y-20);
+            
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.pos.x, this.pos.y, 2, 0, 2*this.Pi2);
+            ctx.fill();
+            ctx.closePath();
+        }
     }
 
     getAngle(pos, target) {
