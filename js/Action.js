@@ -50,6 +50,7 @@ class Action {
         ant.target.weight -= food;
         ant.load = new Food();
         ant.load.weight = food;
+        ant.speed = 1 - ant.load.weight/100;
         //Если корм = 0 то удалить его с карты
         
     }
@@ -72,12 +73,14 @@ class Action {
         ant.target.food += ant.load.weight;
         ant.load = false;
         ant.goal = constructor;
+        ant.speed = 1.0;
     }
 
     static flex(ant){
         ant.timer = 40;
         ant.walk = false;
-        // Начать танцевать
+        ant.goStep();
+
     }
 
     static info(ant) {

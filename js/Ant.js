@@ -14,10 +14,11 @@ class Ant {
         this.target = {pos: model.rndPos(this.pos, this.range)};
         this.pose = false;
         this.timer = 0;
-        this.speed = 1;
+        this.speed = 1.0;
         this.ang = this.getAngle(this.pos, this.target);
         this.load = false;
         this.walk = false;
+        this.step = 0;
     }
 
     update() { 
@@ -69,48 +70,48 @@ class Ant {
         //Верхнея-правая лапка
         ctx.beginPath();
         ctx.moveTo(x+fw.size1, y+fw.size2)
-        ctx.lineTo(x+fw.size3, y)
-        ctx.lineTo(x+fw.size5, y+fw.size1)
+        ctx.lineTo(x+fw.size3, y+this.pose*fw.size2)
+        ctx.lineTo(x+fw.size5, y+fw.size1+this.pose*fw.size2)
         ctx.stroke();
         ctx.closePath();
 
         //Верхнея-левая лапка
         ctx.beginPath();
         ctx.moveTo(x-fw.size1, y+fw.size2)
-        ctx.lineTo(x-fw.size3, y)
-        ctx.lineTo(x-fw.size5, y+fw.size1)
+        ctx.lineTo(x-fw.size3, y+!this.pose*fw.size2)
+        ctx.lineTo(x-fw.size5, y+fw.size1+!this.pose*fw.size2)
         ctx.stroke();
         ctx.closePath();
 
         //Центральная-правая лапка
         ctx.beginPath();
         ctx.moveTo(x+fw.size1, y+fw.size4)
-        ctx.lineTo(x+fw.size6, y+fw.size4)
-        ctx.lineTo(x+fw.size8, y+fw.size7)
+        ctx.lineTo(x+fw.size6, y+fw.size4+!this.pose*fw.size2)
+        ctx.lineTo(x+fw.size8, y+fw.size7+!this.pose*fw.size2)
         ctx.stroke();
         ctx.closePath();
 
         //Центральная-левая лапка
         ctx.beginPath();
         ctx.moveTo(x-fw.size1, y+fw.size4)
-        ctx.lineTo(x-fw.size6, y+fw.size4)
-        ctx.lineTo(x-fw.size8, y+fw.size7)
+        ctx.lineTo(x-fw.size6, y+fw.size4+this.pose*fw.size2)
+        ctx.lineTo(x-fw.size8, y+fw.size7+this.pose*fw.size2)
         ctx.stroke();
         ctx.closePath();
 
         //Нижнея-правая лапка
         ctx.beginPath();
         ctx.moveTo(x+fw.size1, y+fw.size7)
-        ctx.lineTo(x+fw.size3, y+fw.size6)
-        ctx.lineTo(x+fw.size5, y+fw.size9)
+        ctx.lineTo(x+fw.size3, y+fw.size6+this.pose*fw.size3)
+        ctx.lineTo(x+fw.size5, y+fw.size9+this.pose*fw.size3)
         ctx.stroke();
         ctx.closePath();
 
         //Нижнея-левая лапка
         ctx.beginPath();
         ctx.moveTo(x-fw.size1, y+fw.size7)
-        ctx.lineTo(x-fw.size3, y+fw.size6)
-        ctx.lineTo(x-fw.size5, y+fw.size9)
+        ctx.lineTo(x-fw.size3, y+fw.size6+!this.pose*fw.size3)
+        ctx.lineTo(x-fw.size5, y+fw.size9+!this.pose*fw.size3)
         ctx.stroke();
         ctx.closePath();
 
@@ -138,16 +139,16 @@ class Ant {
         //Левый усик
         ctx.beginPath();
         ctx.moveTo(x-fw.size1, y-fw.size2)
-        ctx.lineTo(x-fw.size2, y-fw.size4)
-        ctx.lineTo(x-fw.size4, y-fw.size6)
+        ctx.lineTo(x-fw.size2, y-fw.size4+!this.pose*fw.size2)
+        ctx.lineTo(x-fw.size4, y-fw.size6+!this.pose*fw.size2)
         ctx.stroke();
         ctx.closePath();
 
         //Правый усик
         ctx.beginPath();
         ctx.moveTo(x+fw.size1, y-fw.size2)
-        ctx.lineTo(x+fw.size2, y-fw.size4)
-        ctx.lineTo(x+fw.size4, y-fw.size6)
+        ctx.lineTo(x+fw.size2, y-fw.size4+!this.pose*fw.size)
+        ctx.lineTo(x+fw.size4, y-fw.size6+!this.pose*fw.size)
         ctx.stroke();
         ctx.closePath();
         ctx.restore();
@@ -155,13 +156,19 @@ class Ant {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.font = "8pt Arial";
-            ctx.fillText(this.action.name + " " + this.target.name + " " + this.timer, x, y-20);
+            ctx.fillText(this.action.name + " " + this.timer + " " + this.pose, x, y-20);
             
             ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.pos.x, this.pos.y, 2, 0, 2*this.Pi2);
             ctx.fill();
             ctx.closePath();
+        }
+
+        //Супер-мега-гипер-ультра-крутой-красивый-мощный-резкий-быстрый-кручённый танец
+        if(this.action == Action.flex) {
+            this.goStep()
+            this.angle += 0.5;
         }
     }
 
@@ -170,7 +177,11 @@ class Ant {
     }
 
     goStep() {
-        this.pose = !this.pose;
+        this.step++;
+        if(this.step > 5) {
+            this.pose = !this.pose;
+            this.step = 0;
+        }
         let angle = this.angle-Math.PI/2;
         this.pos.x += this.speed * Math.cos(angle);
         this.pos.y += this.speed * Math.sin(angle);

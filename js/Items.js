@@ -22,7 +22,7 @@ class Food extends Items {
     constructor() {
         super();
         this.color = 'Khaki';
-        this.weight = Math.round(Math.random()*128+128)
+        this.weight = Math.round(Math.random()*128+128);
     }
     
     draw(ctx) {
@@ -40,7 +40,7 @@ class Rock extends Items {
         super();
         this.color = 'Gray';
     }
-}
+}   
 
 class Block extends Items {
     constructor() {

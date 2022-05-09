@@ -7,7 +7,7 @@ class Model {
             height: innerHeight
         }
         this.base = 3;
-        this.food = 256;
+        this.food = 128;
 
         this.numFood  = 100;
         this.nunRock  = 20;
@@ -19,6 +19,7 @@ class Model {
         this.listFood = [];
         this.listRock = [];
         this.listBlock= [];
+        this.listLabel= [];
 
         this.sector = {left: 0, right: 0, top: 0, bottom: 0};
         this.init();
