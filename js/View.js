@@ -32,6 +32,10 @@ class View {
         for(let block of model.listBlock) {
             block.draw(this.ctx);
         }
+
+        for(let label of model.listLabel) {
+            label.draw(this.ctx);
+        }
     }
 }
 //Цвет Maroon

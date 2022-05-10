@@ -7,7 +7,8 @@ class Model {
             height: innerHeight
         }
         this.base = 3;
-        this.food = 128;
+        this.food = 256;
+        this.label = 1000
 
         this.numFood  = 100;
         this.nunRock  = 20;
@@ -80,6 +81,12 @@ class Model {
                     ant.target = this.map[x][y];
                     break
                 }
+    }
+
+    newLabel(pos, color) {
+        let label = new Label(pos, color);
+        this.listLabel.push(label);
+        this.air.push(label);
     }
 
     getSector(pos, range) {

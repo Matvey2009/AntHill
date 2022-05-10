@@ -48,3 +48,22 @@ class Block extends Items {
         this.color = 'Black';
     }
 }
+
+class Label {
+    constructor(pos, color) {
+        this.pos = {
+            x: pos.x,
+            y: pos.y
+        }
+        this.color = color;
+        this.weight = 1024;
+    }
+
+    draw(ctx) {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.fillRect(this.pos.x, this.pos.y, 1, 1);
+        ctx.fill();
+        ctx.closePath();
+    }
+}

@@ -2,15 +2,15 @@ class Ant {
     constructor(colony) {
         this.color = colony.color;
         this.pos = {
-            x: colony.pos.x,
-            y: colony.pos.y
+            x: colony.pos.x+3,
+            y: colony.pos.y+3
         }
         this.action = Action.find;
         this.ai = colony.ai;
         this.goal = constructor;
 
         this.life = 100;
-        this.range =30;
+        this.range =50;
         this.target = {pos: model.rndPos(this.pos, this.range)};
         this.pose = false;
         this.timer = 0;
@@ -177,14 +177,21 @@ class Ant {
     }
 
     goStep() {
+        let pos = {x:Math.round(this.pos.x),y:Math.round(this.pos.y)}
+        model.map[pos.x][pos.y] = false;
         this.step++;
         if(this.step > 5) {
             this.pose = !this.pose;
             this.step = 0;
+            if(this.pose) {
+                model.newLabel(pos, this.color);
+            }
         }
         let angle = this.angle-Math.PI/2;
         this.pos.x += this.speed * Math.cos(angle);
         this.pos.y += this.speed * Math.sin(angle);
+        pos = {x:Math.round(this.pos.x),y:Math.round(this.pos.y)}
+        model.map[pos.x][pos.y] = false;
     }
 }
 
