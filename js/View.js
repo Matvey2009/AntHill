@@ -33,6 +33,7 @@ class View {
             block.draw(this.ctx);
         }
 
+        if (control.label)
         for(let label of model.listLabel) {
             label.draw(this.ctx);
         }

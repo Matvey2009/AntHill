@@ -59,6 +59,10 @@ class Label {
         this.weight = 1024;
     }
 
+    update() {
+        this.weight--;
+    }
+
     draw(ctx) {
         ctx.fillStyle = this.color;
         ctx.beginPath();

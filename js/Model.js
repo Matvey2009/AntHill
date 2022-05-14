@@ -16,11 +16,11 @@ class Model {
 
         this.map = [];
         this.air = [];
-        this.listColony=[];
-        this.listFood = [];
-        this.listRock = [];
-        this.listBlock= [];
-        this.listLabel= [];
+        this.listColony= [];
+        this.listFood  = [];
+        this.listRock  = [];
+        this.listBlock = [];
+        this.listLabel = [];
 
         this.sector = {left: 0, right: 0, top: 0, bottom: 0};
         this.init();
@@ -63,6 +63,16 @@ class Model {
                 ant.update();
             colony.update();
         }
+
+        let listLabel = [];
+        for(let label of this.listLabel) {
+            label.update();
+            if (label.weight <= 0) 
+                this.air[label.pos.x][label.pos.y] = false;
+            else
+                listLabel.push(label);
+        }
+        this.listLabel = listLabel;
     }
 
     rndPos(pos, range) {
@@ -86,7 +96,7 @@ class Model {
     newLabel(pos, color) {
         let label = new Label(pos, color);
         this.listLabel.push(label);
-        this.air.push(label);
+        this.air[pos.x][pos.y] = label;
     }
 
     getSector(pos, range) {

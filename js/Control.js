@@ -12,6 +12,7 @@ class Control {
         this.btnPlay.addEventListener('click', this.game.bind(this));
         this.btnClear.addEventListener('click', this.clear.bind(this));
         this.info = false;
+        this.label = false;
         setInterval(() => this.update(), this.fps);
         onclick = (e) => this.onClcik(e);
         onkeydown = (e) => this.onKeyDown(e);
@@ -39,6 +40,8 @@ class Control {
     onKeyDown(e) {
         if(e.keyCode == 18)
             this.info = !this.info;
+        if(e.keyCode == 17)
+            this.label = !this.label;
     }
 
     game() {

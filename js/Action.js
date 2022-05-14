@@ -62,8 +62,14 @@ class Action {
     }
 
     static dead(ant) {
+        ant.goal = constructor;
+        ant.life = 0;
         ant.timer = 40;
         ant.walk = false;
+        ant.color = 'black';
+        if(ant.load.weight)
+            ant.Action = Action.drop;
+        ant.target = false;
         // Ничего не делать
     }
 

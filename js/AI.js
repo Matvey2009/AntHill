@@ -27,7 +27,7 @@ class PI {
         else if (false)
             ant.action = Action.info;
         //Танцевать
-        else if (ant.life == 1)
+        else if (ant.life == 300)
             ant.action = Action.flex;
         //Подождать
         else

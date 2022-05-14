@@ -10,7 +10,7 @@ class Ant {
         this.goal = constructor;
 
         this.life = 100;
-        this.range =50;
+        this.range = 50;
         this.target = {pos: model.rndPos(this.pos, this.range)};
         this.pose = false;
         this.timer = 0;
@@ -27,6 +27,7 @@ class Ant {
             if (this.life <= 0) 
                 this.action = Action.dead;
             else {
+                this.life -= 1;
                 this.pos = {
                     x : Math.round(this.pos.x),
                     y : Math.round(this.pos.y)
@@ -177,7 +178,7 @@ class Ant {
     }
 
     goStep() {
-        let pos = {x:Math.round(this.pos.x),y:Math.round(this.pos.y)}
+        let pos = {x: Math.round(this.pos.x), y: Math.round(this.pos.y)}
         model.map[pos.x][pos.y] = false;
         this.step++;
         if(this.step > 5) {
