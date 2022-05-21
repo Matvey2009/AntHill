@@ -30,7 +30,7 @@ class Food extends Items {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.found = "6py Arial";
-            ctx.fillText(this.weight, this.pos.x, this.pos.y+10)
+            ctx.fillText(Math.round(this.weight), this.pos.x, this.pos.y+10)
         }
     }
 }

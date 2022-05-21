@@ -59,8 +59,6 @@ class Model {
     
     update() {
         for(let colony of this.listColony) {
-            for(let ant of colony.listAnt)
-                ant.update();
             colony.update();
         }
 
@@ -75,9 +73,9 @@ class Model {
         this.listLabel = listLabel;
     }
 
-    rndPos(pos, range) {
+    rndPos(pos, range) { //Исключить налажение точек
         this.sector = this.getSector(pos, range);
-        return {      
+        return {
             x: Math.round(Math.random() * (this.sector.right-this.sector.left)+this.sector.left),
             y: Math.round(Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top)
         };

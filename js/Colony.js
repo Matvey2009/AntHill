@@ -23,6 +23,23 @@ class Colony {
             this.food -= 100;
             this.delay = this.timer;
         }
+
+        let listAnt = [];
+        for(let ant of this.listAnt) {
+            ant.update();
+            if (ant.life < -100) {
+                let food = new Food();
+                food.weight = 100;
+                food.pos = {
+                    x: ant.pos.x,
+                    y: ant.pos.y
+                }
+                model.listFood.push(food);
+                model.map[food.pos.x][food.pos.y] = food;
+            } else
+                listAnt.push(ant);
+        }
+        this.listAnt = listAnt;  
     }
 
     draw(ctx) {

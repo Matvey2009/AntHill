@@ -23,7 +23,7 @@ class Ant {
 
     update() { 
         this.timer--;
-        this.life -= 1;
+        this.life -= 0.01;
         if (this.timer <= 0) {
             this.pos = {
                 x : Math.round(this.pos.x),
@@ -153,7 +153,7 @@ class Ant {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.font = "8pt Arial";
-            ctx.fillText(this.action.name + " " + this.timer + " " + this.pose, x, y-20);
+            ctx.fillText(this.action.name + " " + this.timer, x, y-20);
             
             ctx.fillStyle = this.color;
             ctx.beginPath();

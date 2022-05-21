@@ -22,17 +22,17 @@ class Action {
 
     static find(ant) {
         ant.goal = Food;
-        ant.timer = 40;
         ant.walk = true;
         ant.target = {pos: model.rndPos(ant.pos, ant.range)};
+        ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed - 10);
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
     static back(ant) {
-        ant.timer = 40;
         ant.walk = true;
         ant.goal = Colony;
         ant.target = {pos: model.rndPos(ant.pos, ant.range)};
+        ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed - 10);
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
@@ -63,7 +63,6 @@ class Action {
 
     static dead(ant) {
         ant.goal = constructor;
-        ant.life = 0;
         ant.timer = 40;
         ant.walk = false;
         ant.color = 'black';
