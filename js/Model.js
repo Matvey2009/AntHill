@@ -73,12 +73,15 @@ class Model {
         this.listLabel = listLabel;
     }
 
-    rndPos(pos, range) { //Исключить налажение точек
+    rndPos(pos, range = 4) {
         this.sector = this.getSector(pos, range);
-        return {
-            x: Math.round(Math.random() * (this.sector.right-this.sector.left)+this.sector.left),
-            y: Math.round(Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top)
-        };
+        while (this.map[pos.x][pos.y] != false) {
+            pos = {
+                x: Math.round(Math.random() * (this.sector.right-this.sector.left)+this.sector.left),
+                y: Math.round(Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top )
+            }
+        }
+        return pos;
     }
 
     vision(ant) {
@@ -110,3 +113,7 @@ class Model {
         return Math.sqrt((pos.x-target.pos.x)**2 + (pos.y-target.pos.y)**2);
     }
 }
+
+// 1)Сделать мёртвого муравья на 25% прозрачным
+// 2)Когда в колоние нет живых муравьёв и корма не достоточно становится чёрный с прозрачностью 50%
+// 3)Переделать функцию Model.rnd.pos так что-бы она выбирала свободнуб функцию

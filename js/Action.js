@@ -65,7 +65,7 @@ class Action {
         ant.goal = constructor;
         ant.timer = 40;
         ant.walk = false;
-        ant.color = 'black';
+        ant.color = 'rgba(0, 0, 0, 0.50)';
         if(ant.load.weight)
             ant.Action = Action.drop;
         ant.target = false;

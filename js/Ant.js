@@ -187,7 +187,8 @@ class Ant {
         let angle = this.angle-Math.PI/2;
         this.pos.x += this.speed * Math.cos(angle);
         this.pos.y += this.speed * Math.sin(angle);
-        pos = {x:Math.round(this.pos.x),y:Math.round(this.pos.y)}
+        //pos = {x:Math.round(this.pos.x),y:Math.round(this.pos.y)};
+        pos = model.rndPos({x:Math.round(this.pos.x),y:Math.round(this.pos.y)}, 2);
         model.map[pos.x][pos.y] = false;
     }
 }
