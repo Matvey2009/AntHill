@@ -1,10 +1,7 @@
 class Ant {
     constructor(colony) {
         this.color = colony.color;
-        this.pos = {
-            x: colony.pos.x+3,
-            y: colony.pos.y+3
-        }
+        this.pos = model.rndPos(colony.pos, 4);
         this.action = Action.find;
         this.ai = colony.ai;
         this.goal = constructor;

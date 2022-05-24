@@ -7,8 +7,8 @@ class Colony {
         this.food = food;
         this.ai = new PI();
         this.pos = { 
-            x: Math.round(Math.random() * (window.innerWidth-500)+250),
-            y: Math.round(Math.random() * (window.innerHeight-300)+150)
+            x: Math.round(Math.random() * window.innerWidth),
+            y: Math.round(Math.random() * window.innerHeight)
         }
         this.listAnt = [];
         this.timer = 100;
@@ -28,29 +28,14 @@ class Colony {
         for(let ant of this.listAnt) {
             ant.update();
             if (ant.life < -100) {
-                let food = new Food();
-                food.weight = 100;
-                food.pos = {
-                    x: ant.pos.x,
-                    y: ant.pos.y
-                }
-                model.listFood.push(food);
-                model.map[food.pos.x][food.pos.y] = food;
+                model.newFood(model.rndPos(and.pos, 100));
             } else
                 listAnt.push(ant);
         }
         this.listAnt = listAnt;  
         if (this.listAnt.length <= 0 && this.food < 100 && this.food > 0) {
             this.color = 'rgba(0, 0, 0, 0.50)';
-
-            let food = new Food();
-            food.weight = this.food;
-            food.pos = {
-                x: this.pos.x,
-                y: this.pos.y
-            }
-            model.listFood.push(food);
-            model.map[food.pos.x][food.pos.y] = food;
+            model.newFood(model.rndPos(this.pos, 4), this.food);
             this.food = 0;
         }
     }

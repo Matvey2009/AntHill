@@ -3,9 +3,9 @@
 class Model {
     constructor() {
         this.size = {
-            width : innerWidth,
-            height: innerHeight
-        }
+            width : window.innerWidth,
+            height: window.innerHeight
+        };
         this.base = 3;
         this.food = 256;
         this.label = 1000
@@ -41,20 +41,24 @@ class Model {
             this.map[colony.pos.x][colony.pos.y] = colony;
         }
         for(let i = 0; i < this.numFood; i++) {
-            let food = new Food();
-            this.listFood.push(food);
-            this.map[food.pos.x][food.pos.y] = food;
+            this.newFood(this.rndPos());
         }
         for(let i = 0; i < this.nunRock; i++) {
-            let rock = new Rock();
+            let rock = new Rock(this.rndPos());
             this.listRock.push(rock);
             this.map[rock.pos.x][rock.pos.y] = rock;
         }
         for(let i = 0; i < this.numBlock; i++) {
-            let block = new Block();
+            let block = new Block(this.rndPos());
             this.listBlock.push(block);
             this.map[block.pos.x][block.pos.y] = block;
         }
+    }
+
+    newFood(pos = {x:this.size.weight/2, y:this.size.height/2}, weight = Math.round(Math.random()*128+128)) {
+        let food = new Food(pos, weight);
+        this.listFood.push(food);
+        this.map[food.pos.x][food.pos.y] = food;
     }
     
     update() {
@@ -73,7 +77,8 @@ class Model {
         this.listLabel = listLabel;
     }
 
-    rndPos(pos, range = 4) {
+    rndPos(pos = {x:this.size.width/2 , y:this.size.height/2}, range = Math.max(this.size.width, this.size.height)) {
+        pos = {x: Math.round(pos.x), y: Math.round(pos.y)};
         this.sector = this.getSector(pos, range);
         while (this.map[pos.x][pos.y] != false) {
             pos = {
@@ -113,7 +118,3 @@ class Model {
         return Math.sqrt((pos.x-target.pos.x)**2 + (pos.y-target.pos.y)**2);
     }
 }
-
-// 1)Сделать мёртвого муравья на 25% прозрачным
-// 2)Когда в колоние нет живых муравьёв и корма не достоточно становится чёрный с прозрачностью 50%
-// 3)Переделать функцию Model.rnd.pos так что-бы она выбирала свободнуб функцию

@@ -48,9 +48,8 @@ class Action {
         ant.walk = false;
         let food = Math.min(ant.target.weight, ant.life/2);
         ant.target.weight -= food;
-        ant.load = new Food();
-        ant.load.weight = food;
-        ant.speed = 1 - ant.load.weight/100;
+        ant.load = new Food(ant.pos, food);
+        ant.speed = 0.7;
         //Если корм = 0 то удалить его с карты
         
     }
