@@ -4,8 +4,8 @@ class View {
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        this.canvas.width = model.size.width;
+        this.canvas.height = model.size.height;
         this.fw = new Flyweight();
         this.ctx.textBaseline = "middle";
         this.ctx.textAlign = "center";

@@ -1,14 +1,14 @@
 //Симулятор муравейника//
 
 class Colony {
-    constructor(food, i) {
+    constructor(pos, food, i) {
         this.pallet = ['Maroon', 'White', 'SaddleBrown', 'DarkKhaki', 'DimGrey'];
         this.color = this.getColor(i);
         this.food = food;
         this.ai = new PI();
         this.pos = { 
-            x: Math.round(Math.random() * window.innerWidth),
-            y: Math.round(Math.random() * window.innerHeight)
+            x: pos.x,
+            y: pos.y
         }
         this.listAnt = [];
         this.timer = 100;

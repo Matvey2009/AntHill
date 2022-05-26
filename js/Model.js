@@ -36,12 +36,19 @@ class Model {
             }
         }
         for(let i = 0; i < this.base; i++) {
-            let colony = new Colony(this.food, i);
+            let pos = { 
+                x: Math.round(Math.random() * this.size.width),
+                y: Math.round(Math.random() * this.size.height)
+            }
+            let colony = new Colony(this.rndPos(pos), this.food, i);
             this.listColony.push(colony);
             this.map[colony.pos.x][colony.pos.y] = colony;
         }
         for(let i = 0; i < this.numFood; i++) {
-            this.newFood(this.rndPos());
+            if (i % 2 == 0)
+                this.newFood(this.rndPos({x:this.size.width/2, y:this.size.height/2}, 100));
+            else
+                this.newFood(this.rndPos());
         }
         for(let i = 0; i < this.nunRock; i++) {
             let rock = new Rock(this.rndPos());
@@ -55,7 +62,7 @@ class Model {
         }
     }
 
-    newFood(pos = {x:this.size.weight/2, y:this.size.height/2}, weight = Math.round(Math.random()*128+128)) {
+    newFood(pos = {x:this.size.width/2, y:this.size.height/2}, weight = Math.round(Math.random()*128+128)) {
         let food = new Food(pos, weight);
         this.listFood.push(food);
         this.map[food.pos.x][food.pos.y] = food;
@@ -87,16 +94,6 @@ class Model {
             }
         }
         return pos;
-    }
-
-    vision(ant) {
-        this.sector = this.getSector(ant.pos, ant.range);
-        for(let x = this.sector.left; x < this.sector.right; x++) 
-            for(let y = this.sector.top; y < this.sector.bottom; y++) 
-                if(this.map[x][y] instanceof ant.goal){
-                    ant.target = this.map[x][y];
-                    break
-                }
     }
 
     newLabel(pos, color) {

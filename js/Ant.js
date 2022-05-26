@@ -26,7 +26,7 @@ class Ant {
                 x : Math.round(this.pos.x),
                 y : Math.round(this.pos.y)
             }
-            model.vision(this);
+            this.vision();
             this.ai.select(this);
             this.action(this);
         }
@@ -150,7 +150,7 @@ class Ant {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.font = "8pt Arial";
-            ctx.fillText(this.action.name + " " + this.timer, x, y-20);
+            ctx.fillText(this.action.name + " " + this.time + " " + this.angle, x, y-20);
             
             ctx.fillStyle = this.color;
             ctx.beginPath();
@@ -159,11 +159,27 @@ class Ant {
             ctx.closePath();
         }
 
+        ctx.fillStyle = 'red'; ///////////////
+        ctx.beginPath();
+        ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
+        ctx.fill();
+        ctx.closePath();
+
         //Супер-мега-гипер-ультра-крутой-красивый-мощный-резкий-быстрый-кручённый танец
         if(this.action == Action.flex) {
             this.goStep()
             this.angle += 0.5;
         }
+    }
+
+    vision() {
+        model.sector = model.getSector(this.pos, this.range);
+        for(let x = model.sector.left; x < model.sector.right; x++) 
+            for(let y = model.sector.top; y < model.sector.bottom; y++) 
+                if(model.map[x][y] instanceof this.goal){
+                    this.target = model.map[x][y];
+                    break
+                }
     }
 
     getAngle(pos, target) {
@@ -185,7 +201,7 @@ class Ant {
         this.pos.x += this.speed * Math.cos(angle);
         this.pos.y += this.speed * Math.sin(angle);
         //pos = {x:Math.round(this.pos.x),y:Math.round(this.pos.y)};
-        pos = model.rndPos({x:Math.round(this.pos.x),y:Math.round(this.pos.y)}, 2);
+        pos = model.rndPos({x: Math.round(this.pos.x), y: Math.round(this.pos.y)}, 2);
         model.map[pos.x][pos.y] = false;
     }
 }
