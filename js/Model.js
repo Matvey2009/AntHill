@@ -6,9 +6,8 @@ class Model {
             width : window.innerWidth,
             height: window.innerHeight
         };
-        this.base = 3;
-        this.food = 256;
-        this.label = 1000
+        this.base = 1;
+        this.food = 25600;
 
         this.numFood  = 100;
         this.nunRock  = 20;
@@ -84,22 +83,33 @@ class Model {
         this.listLabel = listLabel;
     }
 
-    rndPos(pos = {x:this.size.width/2 , y:this.size.height/2}, range = Math.max(this.size.width, this.size.height)) {
-        pos = {x: Math.round(pos.x), y: Math.round(pos.y)};
+    rndPos(pos = {x: this.size.width/2 , y: this.size.height/2}, range = Math.max(this.size.width, this.size.height)) {
+        pos = this.intPos(pos);
         this.sector = this.getSector(pos, range);
         while (this.map[pos.x][pos.y] != false) {
-            pos = {
-                x: Math.round(Math.random() * (this.sector.right-this.sector.left)+this.sector.left),
-                y: Math.round(Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top )
-            }
+            pos = this.intPos({
+                x: Math.random() * (this.sector.right-this.sector.left)+this.sector.left,
+                y: Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top 
+            });
         }
         return pos;
     }
 
     newLabel(pos, color) {
-        let label = new Label(pos, color);
-        this.listLabel.push(label);
-        this.air[pos.x][pos.y] = label;
+        if (this.air[pos.x][pos.y] != false) {
+            if (this.air[pos.x][pos.y].color == color)
+                this.air[pos.x][pos.y].weight = Math.min(8192, this.air[pos.x][pos.y].weight + 1024);
+            else
+                if (this.air[pos.x][pos.y].weight < 1024) {
+                    this.air[pos.x][pos.y].weight = 1024;
+                    this.air[pos.x][pos.y].color = color;
+                } else
+                    this.air[pos.x][pos.y].weight = -1;
+        } else {
+            let label = new Label(pos, color);
+            this.listLabel.push(label);
+            this.air[pos.x][pos.y] = label;
+        }
     }
 
     getSector(pos, range) {
@@ -114,4 +124,17 @@ class Model {
     delta(pos, target) {
         return Math.sqrt((pos.x-target.pos.x)**2 + (pos.y-target.pos.y)**2);
     }
+
+    intPos(pos) {
+        return {
+            x: Math.round(pos.x),
+            y: Math.round(pos.y)
+        }
+    }
 }
+
+// 1)Очки опыта. +
+// 2)Нужно внести в программу такое измение что-бы при появление колоний первые 3-4 имели заданные цвета. +
+// 3)Разширить функцию newLabel так что-бы одинаковые цвета сгладывались до 4096.Если разные то большнее. +
+// 4)Если дважды нажмать мышку в одно место то корм появляется возле.
+// 5)Функция для +

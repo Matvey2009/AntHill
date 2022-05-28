@@ -16,16 +16,14 @@ class Ant {
         this.load = false;
         this.walk = false;
         this.step = 0;
+        this.score = 0;
     }
 
     update() { 
         this.timer--;
         this.life -= 0.01;
         if (this.timer <= 0) {
-            this.pos = {
-                x : Math.round(this.pos.x),
-                y : Math.round(this.pos.y)
-            }
+            this.pos = model.intPos(this.pos);
             this.vision();
             this.ai.select(this);
             this.action(this);
@@ -150,22 +148,21 @@ class Ant {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.font = "8pt Arial";
-            ctx.fillText(this.action.name + " " + this.time + " " + this.angle, x, y-20);
+            ctx.fillText(this.action.name + " " + this.score, x, y-20);
             
             ctx.fillStyle = this.color;
             ctx.beginPath();
             ctx.arc(this.pos.x, this.pos.y, 2, 0, 2*this.Pi2);
             ctx.fill();
             ctx.closePath();
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
+            ctx.fill();
+            ctx.closePath();
         }
 
-        ctx.fillStyle = 'red'; ///////////////
-        ctx.beginPath();
-        ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
-        ctx.fill();
-        ctx.closePath();
-
-        //Супер-мега-гипер-ультра-крутой-красивый-мощный-резкий-быстрый-кручённый танец
+        //Танец
         if(this.action == Action.flex) {
             this.goStep()
             this.angle += 0.5;
@@ -187,12 +184,13 @@ class Ant {
     }
 
     goStep() {
-        let pos = {x: Math.round(this.pos.x), y: Math.round(this.pos.y)}
+        let pos = model.intPos(this.pos);
         model.map[pos.x][pos.y] = false;
         this.step++;
         if(this.step > 5) {
             this.pose = !this.pose;
             this.step = 0;
+            this.score += 1;
             if(this.pose) {
                 model.newLabel(pos, this.color);
             }
@@ -200,9 +198,8 @@ class Ant {
         let angle = this.angle-Math.PI/2;
         this.pos.x += this.speed * Math.cos(angle);
         this.pos.y += this.speed * Math.sin(angle);
-        //pos = {x:Math.round(this.pos.x),y:Math.round(this.pos.y)};
         pos = model.rndPos({x: Math.round(this.pos.x), y: Math.round(this.pos.y)}, 2);
-        model.map[pos.x][pos.y] = false;
+        model.map[pos.x][pos.y] = this;
     }
 }
 

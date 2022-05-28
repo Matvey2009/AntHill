@@ -24,7 +24,7 @@ class Action {
         ant.goal = Food;
         ant.walk = true;
         ant.target = {pos: model.rndPos(ant.pos, ant.range)};
-        ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed - 10);
+        ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed);
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
@@ -32,7 +32,7 @@ class Action {
         ant.walk = true;
         ant.goal = Colony;
         ant.target = {pos: model.rndPos(ant.pos, ant.range)};
-        ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed - 10);
+        ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed);
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
@@ -50,6 +50,7 @@ class Action {
         ant.target.weight -= food;
         ant.load = new Food(ant.pos, food);
         ant.speed = 0.7;
+        ant.score += 50;
         //Если корм = 0 то удалить его с карты
         
     }
@@ -57,6 +58,7 @@ class Action {
     static kick(ant) {
         ant.timer = 40;
         ant.walk = false;
+        ant.score += 25;
         // Укусить вражеского  муравья
     }
 
@@ -78,17 +80,18 @@ class Action {
         ant.load = false;
         ant.goal = constructor;
         ant.speed = 1.0;
+        ant.score += 50;
     }
 
     static flex(ant){
         ant.timer = 40;
         ant.walk = false;
         ant.goStep();
-
     }
 
     static info(ant) {
         ant.timer = 40;
         ant.walk = false;
+        ant.score += 75;
     }
 }

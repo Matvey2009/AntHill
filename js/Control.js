@@ -26,7 +26,7 @@ class Control {
 
     onClcik(e) {
         if(!this.focus){
-            model.newFood(model.rndPos({x: e.clientX, y: e.clientY}));
+            model.newFood(model.rndPos({x: e.clientX, y: e.clientY}, 8));
             this.focus = false;
         }
     }
