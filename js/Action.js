@@ -51,8 +51,8 @@ class Action {
         ant.load = new Food(ant.pos, food);
         ant.speed = 0.7;
         ant.score += 50;
-        //Если корм = 0 то удалить его с карты
-        
+        if (ant.target.weight <= 0)
+           model.delFood();
     }
 
     static kick(ant) {

@@ -6,8 +6,8 @@ class Model {
             width : window.innerWidth,
             height: window.innerHeight
         };
-        this.base = 1;
-        this.food = 25600;
+        this.base = 100;
+        this.food = 256;
 
         this.numFood  = 100;
         this.nunRock  = 20;
@@ -35,10 +35,15 @@ class Model {
             }
         }
         for(let i = 0; i < this.base; i++) {
-            let pos = { 
-                x: Math.round(Math.random() * this.size.width),
-                y: Math.round(Math.random() * this.size.height)
+            let radius = Math.min(this.size.width, this.size.height);
+            radius = (radius - radius / this.base)/2 ;
+            let angle = Math.PI*2/this.base*i;
+            angle += -Math.PI/2+Math.PI/this.base*(this.base+1%2);
+            let pos = {
+                x: this.size.width/2 + radius * Math.cos(angle),
+                y: this.size.height/2 + radius * Math.sin(angle)
             }
+
             let colony = new Colony(this.rndPos(pos), this.food, i);
             this.listColony.push(colony);
             this.map[colony.pos.x][colony.pos.y] = colony;
@@ -61,6 +66,7 @@ class Model {
         }
     }
 
+    //Создание нового корма
     newFood(pos = {x:this.size.width/2, y:this.size.height/2}, weight = Math.round(Math.random()*128+128)) {
         let food = new Food(pos, weight);
         this.listFood.push(food);
@@ -81,12 +87,35 @@ class Model {
                 listLabel.push(label);
         }
         this.listLabel = listLabel;
+
+        let listFood = [];
+        for(let food of this.listFood) {
+            if (food.weight <= 0) 
+                this.map[food.pos.x][food.pos.y] = false;
+            else
+                listFood.push(food);
+        }
+        this.listFood = listFood;
     }
 
+
+    //Удаление корма
+    delFood () {
+        let listFood = [];
+        for(let food of this.listFood) {
+            if (food.weight <= 0) 
+                this.map[food.pos.x][food.pos.y] = false;
+            else
+                listFood.push(food);
+        }
+        this.listFood = listFood;
+    }
+    
+    //Рандоманая позицыя
     rndPos(pos = {x: this.size.width/2 , y: this.size.height/2}, range = Math.max(this.size.width, this.size.height)) {
         pos = this.intPos(pos);
         this.sector = this.getSector(pos, range);
-        while (this.map[pos.x][pos.y] != false) {
+       while (this.map[pos.x][pos.y] != false) {
             pos = this.intPos({
                 x: Math.random() * (this.sector.right-this.sector.left)+this.sector.left,
                 y: Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top 
@@ -95,6 +124,7 @@ class Model {
         return pos;
     }
 
+    //Создание новой метки
     newLabel(pos, color) {
         if (this.air[pos.x][pos.y] != false) {
             if (this.air[pos.x][pos.y].color == color)
@@ -112,6 +142,7 @@ class Model {
         }
     }
 
+    //Обзор
     getSector(pos, range) {
         return {
             left: Math.max(0, pos.x-range),
@@ -121,10 +152,12 @@ class Model {
         }
     }
 
+    //Поворот на цель
     delta(pos, target) {
         return Math.sqrt((pos.x-target.pos.x)**2 + (pos.y-target.pos.y)**2);
     }
-
+    
+    //Округление позиции
     intPos(pos) {
         return {
             x: Math.round(pos.x),
@@ -132,9 +165,3 @@ class Model {
         }
     }
 }
-
-// 1)Очки опыта. +
-// 2)Нужно внести в программу такое измение что-бы при появление колоний первые 3-4 имели заданные цвета. +
-// 3)Разширить функцию newLabel так что-бы одинаковые цвета сгладывались до 4096.Если разные то большнее. +
-// 4)Если дважды нажмать мышку в одно место то корм появляется возле.
-// 5)Функция для +
