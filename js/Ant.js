@@ -4,7 +4,6 @@ class Ant {
         this.pos = model.rndPos(colony.pos, 4);
         this.action = Action.find;
         this.ai = colony.ai;
-        this.goal = constructor;
 
         this.life = 100;
         this.range = 50;
@@ -17,6 +16,7 @@ class Ant {
         this.walk = false;
         this.step = 0;
         this.score = 0;
+        this.listTarget = this.vision();
     }
 
     update() { 
@@ -170,13 +170,35 @@ class Ant {
     }
 
     vision() {
-        model.sector = model.getSector(this.pos, this.range);
-        for(let x = model.sector.left; x < model.sector.right; x++) 
-            for(let y = model.sector.top; y < model.sector.bottom; y++) 
-                if(model.map[x][y] instanceof this.goal){
-                    this.target = model.map[x][y];
-                    break
-                }
+        this.listTarget = {
+            colony: false,
+            ally: false,
+            allyen: false,
+            food: false,
+            rock: false,
+            labFood: false,
+            labAnt: false,
+            random: false
+        }
+        this.pos = model.intPos(this.pos);
+
+        for (let i = 1; i <= this.range; i++) {
+            let sector = model.getSector(this.pos, i)
+            for(let j = sector.left; j <= sector.right; j++){
+                this.memory(model.map[j][sector.top]);
+                this.memory(model.map[j][sector.bottom]);
+            }
+            for(let j = sector.top+1; j <= sector.bottom; j++){
+                this.memory(model.map[sector.left][y]);
+                this.memory(model.map[sector.right][y]);
+            }
+        }
+        this.listTarget.random = model.rndPos(this.pos, this.range);
+        return this.listTarget;
+    }
+
+    memory(point) {
+
     }
 
     getAngle(pos, target) {
@@ -191,30 +213,15 @@ class Ant {
             this.pose = !this.pose;
             this.step = 0;
             this.score += 1;
-            if(this.pose) {
+            if (this.pose)
                 model.newLabel(pos, this.color);
-            }
+            else if (this.load instanceof Food)
+                model.newLabel(pos, Food.color);
         }
         let angle = this.angle-Math.PI/2;
         this.pos.x += this.speed * Math.cos(angle);
         this.pos.y += this.speed * Math.sin(angle);
         pos = model.rndPos({x: Math.round(this.pos.x), y: Math.round(this.pos.y)}, 2);
         model.map[pos.x][pos.y] = this;
-    }
-}
-
-class Flyweight {
-    constructor() {
-        this.size = 1;
-        this.size = this.size;
-        this.size1 = this.size;
-        this.size2 = this.size*2;
-        this.size3 = this.size*5;
-        this.size4 = this.size*3;
-        this.size5 = this.size*7;
-        this.size6 = this.size*6;
-        this.size7 = this.size*4;
-        this.size8 = this.size*8;
-        this.size9 = this.size*12;
     }
 }

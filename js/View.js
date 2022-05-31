@@ -39,4 +39,19 @@ class View {
         }
     }
 }
-//Цвет Maroon
+
+class Flyweight {
+    constructor() {
+        this.size = 1;
+        this.size = this.size;
+        this.size1 = this.size;
+        this.size2 = this.size*2;
+        this.size3 = this.size*5;
+        this.size4 = this.size*3;
+        this.size5 = this.size*7;
+        this.size6 = this.size*6;
+        this.size7 = this.size*4;
+        this.size8 = this.size*8;
+        this.size9 = this.size*12;
+    }
+}

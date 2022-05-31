@@ -19,9 +19,11 @@ class Items {
 }
 
 class Food extends Items {
+    static color = 'Khaki';
+
     constructor(pos, weight) {
         super(pos);
-        this.color = 'Khaki';
+        this.color = Food.color;
         this.weight = weight;
     }
     
