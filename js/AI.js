@@ -15,7 +15,7 @@ class PI {
         else if (model.delta(ant.pos, ant.target) < ant.speed*12 && ant.target instanceof Food && !ant.load)
             ant.action = Action.grab;
         //Двигаться
-        else if (ant.target instanceof ant.goal)
+        else if (ant.target && model.delta(ant.pos, ant.target))
             ant.action = Action.mоve;
         //Вернуться
         else if (ant.load instanceof Food)

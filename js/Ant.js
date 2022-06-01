@@ -19,6 +19,7 @@ class Ant {
         this.listTarget = this.vision();
     }
 
+    //Обновление(Повторение)
     update() { 
         this.timer--;
         this.life -= 0.01;
@@ -32,6 +33,7 @@ class Ant {
             this.goStep();
     }
 
+    //Отрисовка
     draw(ctx, fw) {
         let x = this.pos.x;
         let y = this.pos.y;
@@ -169,6 +171,7 @@ class Ant {
         }
     }
 
+    //Зрение
     vision() {
         this.listTarget = {
             colony: false,
@@ -189,22 +192,38 @@ class Ant {
                 this.memory(model.map[j][sector.bottom]);
             }
             for(let j = sector.top+1; j <= sector.bottom; j++){
-                this.memory(model.map[sector.left][y]);
-                this.memory(model.map[sector.right][y]);
+                this.memory(model.map[sector.left][j]);
+                this.memory(model.map[sector.right][j]);
             }
         }
-        this.listTarget.random = model.rndPos(this.pos, this.range);
+        this.listTarget.random = {pos: model.rndPos(this.pos, this.range)};
         return this.listTarget;
     }
 
+    //Проверка координат point
     memory(point) {
-
+        if (point instanceof Colony && point.color == this.color)
+            this.listTarget.colony = point;
+        else if (point instanceof Ant && point.color == this.color)
+            this.listTarget.ally = point;
+        else if (point instanceof Ant && point.load instanceof food && point.color != this.color)
+            this.listTarget.allyen = point;
+        else if (point instanceof Food)
+            this.listTarget.food = point;
+        else if (point instanceof Rock)
+            this.listTarget.rock = point;
+        //else if (point instanceof model.label)
+        //    this.listTarget.labFood = point;
+        //else if (point instanceof model.label)
+        //    this.listTarget.labAnt = point;
     }
+
 
     getAngle(pos, target) {
         return Math.atan2(target.pos.y - pos.y,  target.pos.x - pos.x) + Math.PI / 2;
     }
 
+    //Хотьба
     goStep() {
         let pos = model.intPos(this.pos);
         model.map[pos.x][pos.y] = false;

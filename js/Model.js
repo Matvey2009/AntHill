@@ -25,6 +25,7 @@ class Model {
         this.init();
     }
 
+    //Создание объектов
     init() {
         for(let x = 0; x < this.size.width; x++) {
             this.map[x] = [];
@@ -73,6 +74,7 @@ class Model {
         this.map[food.pos.x][food.pos.y] = food;
     }
     
+    //Обновление(Повторение)
     update() {
         for(let colony of this.listColony) {
             colony.update();

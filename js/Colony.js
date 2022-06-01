@@ -15,6 +15,7 @@ class Colony {
         this.delay = this.timer / 4;
     }
 
+    //Обновление(Повторение)
     update() {
         if(this.food > 100)
             this.delay--;
@@ -40,6 +41,7 @@ class Colony {
         }
     }
 
+    //Отрисовка
     draw(ctx) {
         let grad = ctx.createRadialGradient(this.pos.x, this.pos.y, 8, this.pos.x, this.pos.y, 32);
         grad.addColorStop(0, this.color);
@@ -58,6 +60,7 @@ class Colony {
         }
     }
 
+    //Подор случайного цвета колонии
     getColor(i) {
         if (i<this.pallet.length)
             return this.pallet[i];

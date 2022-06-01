@@ -15,20 +15,31 @@ class Action {
         Action.info
     ];
 
+    //Ждать
     static wait(ant) {
         ant.timer = 40;
         ant.walk = false;
     }
 
+    //Искать
     static find(ant) {
-        ant.goal = Food;
+        if (ant.listTarget.food)
+            ant.target = ant.listTarget.food;
+        else if (ant.listTarget.allyen)
+            ant.target = ant.listTarget.allyen;
+        else 
+            ant.target = ant.listTarget.random;
         ant.walk = true;
-        ant.target = {pos: model.rndPos(ant.pos, ant.range)};
         ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed);
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
+    //Поиск колнии
     static back(ant) {
+        if (ant.listTarget.colony)
+            ant.target = ant.listTarget.colony;
+        else 
+            ant.target = ant.listTarget.random;
         ant.walk = true;
         ant.goal = Colony;
         ant.target = {pos: model.rndPos(ant.pos, ant.range)};
@@ -36,14 +47,15 @@ class Action {
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
+    //Передвижение
     static mоve(ant) {
         ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed - 10);
         ant.walk = true;
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
 
+    //Взять Корм или Камень
     static grab(ant) {
-        ant.goal = Colony;
         ant.timer = 40;
         ant.walk = false;
         let food = Math.min(ant.target.weight, ant.life/2);
@@ -55,24 +67,24 @@ class Action {
            model.delFood();
     }
 
+    //Ударить(укусить) вражеского муравья
     static kick(ant) {
         ant.timer = 40;
         ant.walk = false;
         ant.score += 25;
-        // Укусить вражеского  муравья
     }
 
+    //Смерть
     static dead(ant) {
-        ant.goal = constructor;
         ant.timer = 40;
         ant.walk = false;
         ant.color = 'rgba(0, 0, 0, 0.50)';
         if(ant.load.weight)
             ant.Action = Action.drop;
         ant.target = false;
-        // Ничего не делать
     }
 
+    //Выбросить предмет который взял муравей
     static drop(ant) {
         ant.timer = 40;
         ant.walk = false;
@@ -83,12 +95,14 @@ class Action {
         ant.score += 50;
     }
 
+    //Танец муравья
     static flex(ant){
         ant.timer = 40;
         ant.walk = false;
         ant.goStep();
     }
 
+    //Передача информации
     static info(ant) {
         ant.timer = 40;
         ant.walk = false;

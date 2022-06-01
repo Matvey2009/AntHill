@@ -9,6 +9,8 @@ class Items {
         this.color = 'white';
         this.Pi2 = Math.PI*2;
     }
+
+    //Отрисовка
     draw(ctx) {
         ctx.fillStyle = this.color;
         ctx.beginPath();
@@ -27,6 +29,7 @@ class Food extends Items {
         this.weight = weight;
     }
     
+    //Отрисовка
     draw(ctx) {
         super.draw(ctx);
         if(control.info) {
@@ -53,6 +56,7 @@ class Block extends Items {
 
 class Label {
     constructor(pos, color) {
+        //Определение позиции метки
         this.pos = {
             x: pos.x,
             y: pos.y

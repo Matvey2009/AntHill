@@ -18,12 +18,14 @@ class Control {
         onkeydown = (e) => this.onKeyDown(e);
     }
 
+    //Обновление(Повторение)
     update() {
         if(this.play)
             model.update();
         view.draw();
     }
 
+    //Создание корма по нажатию мышки
     onClcik(e) {
         if(!this.focus){
             model.newFood(model.rndPos({x: e.clientX, y: e.clientY}, 8));
@@ -31,13 +33,14 @@ class Control {
         }
     }
 
+    //Показ информации по нажатию кнопок
     onKeyDown(e) {
         if(e.keyCode == 18)
-            this.info = !this.info;
+            this.info = !this.info;//Показ информации
         if(e.keyCode == 17)
-            this.label = !this.label;
+            this.label = !this.label; //Показ меток
     }
-
+    
     game() {
         this.play = !this.play;
         this.btnName();
