@@ -2,7 +2,7 @@
 
 class Colony {
     constructor(pos, food, i) {
-        this.pallet = ['Crimson', 'DarkKhaki', 'SeaGreen', 'DimGrey', 'DarkMagenta'];
+        this.pallet = ['Crimson', 'DarkCyan', 'SeaGreen', 'DimGrey', 'DarkMagenta'];
         this.color = this.getColor(i);
         this.food = food;
         this.ai = new PI();

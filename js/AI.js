@@ -14,15 +14,15 @@ class PI {
         //Взять
         else if (model.delta(ant.pos, ant.target) < ant.speed*12 && ant.target instanceof Food && !ant.load)
             ant.action = Action.grab;
-        //Двигаться
-        else if (ant.target && model.delta(ant.pos, ant.target))
-            ant.action = Action.mоve;
         //Вернуться
         else if (ant.load instanceof Food)
             ant.action = Action.back;
         //Найти
         else if (!ant.load)
             ant.action = Action.find;
+        //Двигаться
+        else if (ant.target && model.delta(ant.pos, ant.target) <= ant.speed * 10)
+            ant.action = Action.mоve;
         //Обмен информацией
         else if (false)
             ant.action = Action.info;

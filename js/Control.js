@@ -11,6 +11,7 @@ class Control {
         this.btnSave = document.getElementById('save');
         this.btnPlay.addEventListener('click', this.game.bind(this));
         this.btnClear.addEventListener('click', this.clear.bind(this));
+        this.btnSave.addEventListener('click', this.save.bind(this));
         this.info = false;
         this.label = false;
         setInterval(() => this.update(), this.fps);
@@ -59,4 +60,10 @@ class Control {
         else
             this.btnPlay.innerHTML = "<i class='fa fa-play' aria-hidden='true'></i>";
     } 
+
+    save() {
+        var blob = new Blob(["My first txt file."],
+            { type: "text/plain;charset=utf-8" });
+        saveAs(blob, "static.txt");
+    }
 }

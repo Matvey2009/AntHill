@@ -188,12 +188,12 @@ class Ant {
         for (let i = 1; i <= this.range; i++) {
             let sector = model.getSector(this.pos, i)
             for(let j = sector.left; j <= sector.right; j++){
-                this.memory(model.map[j][sector.top]);
-                this.memory(model.map[j][sector.bottom]);
+                this.memory(model.map[j][sector.top], model.air[j][sector.top]);
+                this.memory(model.map[j][sector.bottom], model.air[j][sector.bottom]);
             }
             for(let j = sector.top+1; j <= sector.bottom; j++){
-                this.memory(model.map[sector.left][j]);
-                this.memory(model.map[sector.right][j]);
+                this.memory(model.map[sector.left][j], model.air[sector.left][j]);
+                this.memory(model.map[sector.right][j], model.air[sector.right][j]);
             }
         }
         this.listTarget.random = {pos: model.rndPos(this.pos, this.range)};
@@ -201,21 +201,21 @@ class Ant {
     }
 
     //Проверка координат point
-    memory(point) {
-        if (point instanceof Colony && point.color == this.color)
+    memory(point, smell ) {
+        if (point instanceof Colony && point.color == this.color && this.load)
             this.listTarget.colony = point;
-        else if (point instanceof Ant && point.color == this.color)
+        else if (point instanceof Ant && point.color == this.color) 
             this.listTarget.ally = point;
-        else if (point instanceof Ant && point.load instanceof food && point.color != this.color)
+        else if (point instanceof Ant && point.load instanceof Food && point.color != this.color)
             this.listTarget.allyen = point;
         else if (point instanceof Food)
             this.listTarget.food = point;
         else if (point instanceof Rock)
             this.listTarget.rock = point;
-        //else if (point instanceof model.label)
-        //    this.listTarget.labFood = point;
-        //else if (point instanceof model.label)
-        //    this.listTarget.labAnt = point;
+        else if (smell instanceof Label && smell.color == Food.color)
+            this.listTarget.labFood = smell;
+        else if (smell instanceof Label && smell.color == this.color)
+            this.listTarget.labAnt = smell;
     }
 
 

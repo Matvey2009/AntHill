@@ -27,6 +27,8 @@ class Action {
             ant.target = ant.listTarget.food;
         else if (ant.listTarget.allyen)
             ant.target = ant.listTarget.allyen;
+        //else if (ant.listTarget.labFood)
+        //    ant.target = ant.listTarget.labFood;
         else 
             ant.target = ant.listTarget.random;
         ant.walk = true;
@@ -38,11 +40,11 @@ class Action {
     static back(ant) {
         if (ant.listTarget.colony)
             ant.target = ant.listTarget.colony;
+        //else if (ant.listTarget.labAnt)
+        //    ant.target = ant.listTarget.labAnt;
         else 
             ant.target = ant.listTarget.random;
         ant.walk = true;
-        ant.goal = Colony;
-        ant.target = {pos: model.rndPos(ant.pos, ant.range)};
         ant.timer = Math.round(model.delta(ant.pos, ant.target) / ant.speed);
         ant.angle = ant.getAngle(ant.pos, ant.target);
     }
@@ -69,9 +71,14 @@ class Action {
 
     //Ударить(укусить) вражеского муравья
     static kick(ant) {
-        ant.timer = 40;
         ant.walk = false;
+        ant.listTarget.allyen = ant.target;
+        ant.angle = ant.getAngle;
+        ant.target.target = ant;
+        ant.target.live -= 10
         ant.score += 25;
+        ant.target = false;
+        ant.timer = 50;
     }
 
     //Смерть
@@ -90,7 +97,6 @@ class Action {
         ant.walk = false;
         ant.target.food += ant.load.weight;
         ant.load = false;
-        ant.goal = constructor;
         ant.speed = 1.0;
         ant.score += 50;
     }
