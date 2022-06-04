@@ -35,8 +35,54 @@ class PI {
     }
 }
 
-class AI {
+class RI {
     select(ant) {
-        ant.action = Action.listAction[(Math.floor(Math.random() * Action.listAction.length))];
+        if (ant.life <= 0)
+            ant.action = Action.dead;
+        else
+            ant.action = Action.listAction[(Math.floor(Math.random() * Action.listAction.length))];
+    }
+}
+
+class AI {
+    constructor(ant) {
+        //Входящие данные
+        this.inputNodes = [ 
+            ant.life /= 100, 
+            ant.target ?? false,
+            ant.load instanceof Food,
+            ant.load instanceof Rock,
+            ant.listTarget.colony,
+            ant.listTarget.ally,
+            ant.listTarget.allyen,
+            ant.listTarget.food,
+            ant.listTarget.rock,
+            ant.listTarget.labFoodse,
+            ant.listTarget.labAnt
+        ];
+
+        hiddenNodesOne = new Array(13);
+
+        hiddenNodesTwo = new Array(13); 
+
+        //Выходящие данные
+        this.outputNodes = [
+            Action.wait,
+            Action.find,
+            Action.back,
+            Action.mоve,
+            Action.grab,
+            Action.kick,
+            Action.drop,
+            Action.flex,
+            Action.info
+        ]
+    }
+
+    select(ant) {
+        if (ant.life <= 0)
+            ant.action = Action.dead;
+        else
+            ant.action = Action.listAction[(Math.floor(Math.random() * Action.listAction.length))];
     }
 }
