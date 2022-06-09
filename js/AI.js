@@ -45,25 +45,30 @@ class RI {
 }
 
 class AI {
+    countIn = 11;
+    count1 = 13;
+    count2 = 13;
+    countOut= 9;
+
     constructor(ant) {
         //Входящие данные
-        this.inputNodes = [ 
-            ant.life /= 100, 
-            ant.target ?? false,
-            ant.load instanceof Food,
-            ant.load instanceof Rock,
-            ant.listTarget.colony,
-            ant.listTarget.ally,
-            ant.listTarget.allyen,
-            ant.listTarget.food,
-            ant.listTarget.rock,
-            ant.listTarget.labFoodse,
-            ant.listTarget.labAnt
-        ];
+        //this.inputNodes = [ 
+        //    ant.life /= 100, 
+        //    !!ant.target,
+        //    ant.load instanceof Food,
+        //    ant.load instanceof Rock,
+        //    ant.listTarget.colony,
+        //    ant.listTarget.ally,
+        //    ant.listTarget.allyen,
+        //    ant.listTarget.food,
+        //    ant.listTarget.rock,
+        //    ant.listTarget.labFoodse,
+        //    ant.listTarget.labAnt
+        //];
 
-        hiddenNodesOne = new Array(13);
+        this.hiddenNodesOne = new Array(13);
 
-        hiddenNodesTwo = new Array(13); 
+        this.hiddenNodesTwo = new Array(13); 
 
         //Выходящие данные
         this.outputNodes = [
@@ -79,10 +84,27 @@ class AI {
         ]
     }
 
+    init (ant) {
+        ant.nn.w_1 = this.rndSynapse(this.countIn, this.count1);
+        ant.nn.w_2 = this.rndSynapse(this.count1, this.count2);
+        ant.nn.w_3 = this.rndSynapse(this.count2, this.countOut);
+
+    }
+
     select(ant) {
         if (ant.life <= 0)
             ant.action = Action.dead;
         else
             ant.action = Action.listAction[(Math.floor(Math.random() * Action.listAction.length))];
+    }
+
+    rndSynapse(start, finish) {
+        let node = [];
+        for(let i = 0; i < start; i++) {
+            node[i] = [];
+            for(let j = 0; j < finish; j++)
+                node[i][j] = Math.random();
+        }
+        return node
     }
 }
