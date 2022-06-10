@@ -159,7 +159,7 @@ class Ant {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.font = "8pt Arial";
-            ctx.fillText(this.action.name + " " + this.score + " " + '5613', x, y-20);
+            ctx.fillText(this.action.name + " " + this.score, x, y-20);
             
             ctx.fillStyle = this.color;
             ctx.beginPath();
