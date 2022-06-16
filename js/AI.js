@@ -80,9 +80,8 @@ class AI {
             this.hiddenNodesTwo = this.synapse(this.hiddenNodesOne, ant.nn.w_2, this.hiddenNodesTwo);
             this.hiddenNodesTwo = this.norm(this.hiddenNodesTwo);
 
-            //this.outputNodes = this.synapse(this.hiddenNodesTwo, ant.nn.w_3, this.outputNodes);
-            //this.outputNodes = this.norm(this.outputNodes);
-            this.outputNodes[1] = 5; ///////////////////////////////////////
+            this.outputNodes = this.synapse(this.hiddenNodesTwo, ant.nn.w_3, this.outputNodes);
+            this.outputNodes = this.norm(this.outputNodes);
 
             let maxi = Math.max(...this.outputNodes);
             maxi = this.outputNodes.indexOf(maxi);
@@ -118,12 +117,18 @@ class AI {
 
     // Нормализация данныъ
     norm(node) {
-        
+        let maxi = Math.max(...node);
+        for(let i = 0; i > node.length; i++)
+            node[i] /= maxi;
         return node;
     }
 
     //Расчёт данных нейрона
     synapse(start, weight, finish) {
+    for(let i = 0; i>start; i++)
+        for(let j = 0; j>finish; j++)
+            finish[j] += start[i] * weight[i][j];
+        return finish;
     }
 
     //Рандомные веса

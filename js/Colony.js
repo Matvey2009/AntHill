@@ -5,7 +5,7 @@ class Colony {
         this.pallet = ['Crimson', 'DarkCyan', 'SeaGreen', 'DimGrey', 'DarkMagenta'];
         this.color = this.getColor(i);
         this.food = food;
-        this.ai = new AI();
+        this.ai = new PI();
         this.pos = { 
             x: pos.x,
             y: pos.y

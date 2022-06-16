@@ -168,14 +168,13 @@ class Ant {
             ctx.closePath();
             ctx.fillStyle = 'red';
             ctx.beginPath();
-            ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
+            //ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
             ctx.fill();
             ctx.closePath();
         }
 
         //Танец
         if(this.action == Action.flex) {
-            this.goStep()
             this.angle += 0.5;
         }
     }

@@ -117,11 +117,12 @@ class Model {
     rndPos(pos = {x: this.size.width/2 , y: this.size.height/2}, range = Math.max(this.size.width, this.size.height)) {
         pos = this.intPos(pos);
         this.sector = this.getSector(pos, range);
-       while (this.map[pos.x][pos.y] != false) {
-            pos = this.intPos({
+        while (this.map[pos.x][pos.y] !== false) {
+            pos = {
                 x: Math.random() * (this.sector.right-this.sector.left)+this.sector.left,
                 y: Math.random() * (this.sector.bottom-this.sector.top)+this.sector.top 
-            });
+            };
+            pos = this.intPos(pos);
         }
         return pos;
     }
