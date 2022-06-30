@@ -17,7 +17,7 @@ class Control {
         setInterval(() => this.update(), this.fps);
         onclick = (e) => this.onClcik(e);
         onkeydown = (e) => this.onKeyDown(e);
-        this.load()
+        //this.load()
     }
 
     //Обновление(Повторение)
@@ -41,6 +41,8 @@ class Control {
             this.info = !this.info;//Показ информации
         if(e.keyCode == 17)
             this.label = !this.label; //Показ меток
+        if(e.keyCode == 80)
+            this.game() //Поставить паузу при нажматие "p"
     }
     
     game() {
