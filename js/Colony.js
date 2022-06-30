@@ -5,7 +5,7 @@ class Colony {
         this.pallet = ['Crimson', 'DarkCyan', 'SeaGreen', 'DimGrey', 'DarkMagenta'];
         this.color = this.getColor(i);
         this.food = food;
-        this.ai = new AI();
+        this.ai = new PI();
         this.pos = { 
             x: pos.x,
             y: pos.y
@@ -53,7 +53,7 @@ class Colony {
         ctx.closePath();
 
         
-        if(control.info) {
+        if(control.label) {
             ctx.fillStyle = "black";
             ctx.found = "8pt Arial";
             ctx.fillText(this.listAnt.length, this.pos.x, this.pos.y)
