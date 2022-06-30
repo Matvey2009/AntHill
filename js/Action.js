@@ -40,8 +40,8 @@ class Action {
     static back(ant) {
         if (ant.listTarget.colony)
             ant.target = ant.listTarget.colony;
-        //else if (ant.listTarget.labAnt)
-        //    ant.target = ant.listTarget.labAnt;
+        //else if (ant.listTarget.labAnt)          Не раскоментировать!
+        //    ant.target = ant.listTarget.labAnt;  Не раскоментировать!
         else 
             ant.target = ant.listTarget.random;
         ant.walk = true;
@@ -104,6 +104,7 @@ class Action {
             ant.load = false;
             ant.speed = 1.0;
             ant.score += 50;
+            ant.Action = Action.find;
         }
         ant.timer = 40;
         ant.walk = false;
