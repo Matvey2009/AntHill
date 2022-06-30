@@ -6,7 +6,7 @@ class Ant {
         this.ai = colony.ai;
 
         this.life = 100;
-        this.range = 50;
+        this.range = 60;
         this.target = {pos: model.rndPos(this.pos, this.range)};
         this.pose = false;
         this.timer = 0;
@@ -167,7 +167,7 @@ class Ant {
             ctx.closePath();
             ctx.fillStyle = 'red';
             ctx.beginPath();
-            //ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
+            ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
             ctx.fill();
             ctx.closePath();
         }
