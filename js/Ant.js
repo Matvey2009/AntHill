@@ -1,5 +1,6 @@
 class Ant {
     constructor(colony) {
+        this.colony = colony
         this.color = colony.color;
         this.pos = model.rndPos(colony.pos, 4);
         this.action = Action.find;
@@ -203,7 +204,18 @@ class Ant {
                 this.memory(model.map[sector.right][j], model.air[sector.right][j]);
             }
         }
-        this.listTarget.random = {pos: model.rndPos(this.pos, this.range)};
+        if (!this.load)
+            this.listTarget.random = {pos: model.rndPos(this.pos, this.range)};
+        else {
+            let dCol = model.delta(this.pos, this.colony);
+            let dRnd = dCol;
+            let limit = 3;
+            while (dCol <= dRnd && limit >= 0) {
+                this.listTarget.random = {pos: model.rndPos(this.pos, this.range)};
+                dRnd = model.delta(this.listTarget.random.pos, this.colony);
+                limit--;
+            }
+        }
         return this.listTarget;
     }
 
