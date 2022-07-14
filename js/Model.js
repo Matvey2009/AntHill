@@ -7,7 +7,7 @@ class Model {
             height: window.innerHeight
         };
         this.base = 5;
-        this.food = 256;
+        this.food = 2256;
 
         this.numFood  = 100;
         this.nunRock  = 20;
