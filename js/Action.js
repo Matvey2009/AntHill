@@ -81,6 +81,10 @@ class Action {
             ant.angle = ant.getAngle;
             ant.score += 25;
             ant.listTarget.allyen = ant.target;
+            if (ant.target.live <= 0) {
+                ant.frag += 1;
+                ant.colony.frag += 1;
+                }
         }
         ant.walk = false;
         ant.target = false;
