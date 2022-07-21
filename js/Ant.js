@@ -17,6 +17,7 @@ class Ant {
         this.walk = false;
         this.step = 0;
         this.score = 0;
+        this.frag = 0;
         this.listTarget = this.vision();
         if (this.ai instanceof AI) {
             this.nn = {
@@ -159,7 +160,7 @@ class Ant {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.font = "8pt Arial";
-            ctx.fillText(this.action.name + " " + this.score, x, y-20);
+            ctx.fillText(this.action.name + " " + this.frag, x, y-20);
             
             ctx.fillStyle = this.color;
             ctx.beginPath();
