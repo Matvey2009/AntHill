@@ -13,6 +13,8 @@ class Colony {
         this.listAnt = [];
         this.timer = 100;
         this.delay = this.timer / 4;
+        this.frag = 0;
+        this.lose = 0;
     }
 
     //Обновление(Повторение)
@@ -30,6 +32,7 @@ class Colony {
             ant.update();
             if (ant.life < -100) {
                 model.newFood(model.rndPos(and.pos, 100));
+                this.lose += 1;
             } else
                 listAnt.push(ant);
         }
@@ -39,6 +42,7 @@ class Colony {
             model.newFood(model.rndPos(this.pos, 4), this.food);
             this.food = 0;
         }
+        model.map[this.pos.x][this.pos.y] = this;
     }
 
     //Отрисовка
@@ -54,9 +58,13 @@ class Colony {
 
         
         if(control.label) {
+            ctx.found = "1pt Arial";
+            ctx.fillStyle = "white";
+            ctx.fillText(this.listAnt.length, this.pos.x, this.pos.y-4)
+            ctx.fillStyle = "DarkRed";
+            ctx.fillText(this.frag, this.pos.x-4, this.pos.y+4)
             ctx.fillStyle = "black";
-            ctx.found = "8pt Arial";
-            ctx.fillText(this.listAnt.length, this.pos.x, this.pos.y)
+            ctx.fillText(this.frag, this.pos.x+4, this.pos.y+4)
         }
     }
 
