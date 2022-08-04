@@ -160,7 +160,7 @@ class Ant {
         if(control.info) {
             ctx.fillStyle = this.color;
             ctx.font = "8pt Arial";
-            ctx.fillText(this.action.name + " " + this.frag, x, y-20);
+            ctx.fillText(this.action.name + " " + this.timer, x, y+15);
             
             ctx.fillStyle = this.color;
             ctx.beginPath();
@@ -168,10 +168,12 @@ class Ant {
             ctx.fill();
             ctx.closePath();
             ctx.fillStyle = 'red';
-            ctx.beginPath();
-            ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
-            ctx.fill();
-            ctx.closePath();
+            if (this.target) {
+                ctx.beginPath();
+                ctx.fillRect(this.target.pos.x, this.target.pos.y, 2, 2);
+                ctx.fill();
+                ctx.closePath();
+            }
         }
 
         //Танец
@@ -222,20 +224,22 @@ class Ant {
 
     //Проверка координат point
     memory(point, smell ) {
+        //Объекты
         if (point instanceof Colony && point.color == this.color && this.load)
             this.listTarget.colony = point;
         else if (point instanceof Ant && point.color == this.color) 
             this.listTarget.ally = point;
-        else if (point instanceof Ant && point.load instanceof Food && point.color != this.color)
-            this.listTarget.allyen = point;
-        else if (point instanceof Food)
+        else if (!this.listTarget.food && point instanceof Food)
             this.listTarget.food = point;
         else if (point instanceof Rock)
             this.listTarget.rock = point;
-        else if (smell instanceof Label && smell.color == Food.color)
+        else if (!this.listTarget.allyen && point instanceof Ant && point.load instanceof Food && point.color != this.color)
+            this.listTarget.allyen = point;
+        //Запахи
+        else if (smell instanceof Label && smell.color == Food.color && (!this.listTarget.labFood || smell.weight < this.listTarget.labFood.weight))
             this.listTarget.labFood = smell;
-        else if (smell instanceof Label && smell.color == this.color)
-            this.listTarget.labAnt = smell;
+        //else if (smell instanceof Label && smell.color == this.color) 
+        //    this.listTarget.labAnt = smell;
     }
 
 

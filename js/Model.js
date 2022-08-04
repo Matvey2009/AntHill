@@ -7,7 +7,7 @@ class Model {
             height: window.innerHeight
         };
         this.base = 5;
-        this.food = 256;
+        this.food = 2560;
 
         this.numFood  = 150;
         this.nunRock  = 20;
@@ -50,7 +50,7 @@ class Model {
             this.map[colony.pos.x][colony.pos.y] = colony;
         }
         for(let i = 0; i < this.numFood; i++) {
-            if (i % 2 == 0)
+            if (i % 9 > 0)
                 this.newFood(this.rndPos({x:this.size.width/2, y:this.size.height/2}, 100));
             else
                 this.newFood(this.rndPos());

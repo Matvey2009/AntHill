@@ -62,7 +62,7 @@ class Label {
             y: pos.y
         }
         this.color = color;
-        this.weight = 1024;
+        this.weight = 2048;
     }
 
     update() {
